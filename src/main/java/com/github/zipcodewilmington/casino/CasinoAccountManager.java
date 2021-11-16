@@ -17,22 +17,13 @@ public class CasinoAccountManager {
         arcadeAccount.put("Bob", new CasinoAccount("Bob", "Billy", 100));
     }
 
-    /**
-     * @param userName     name of account to be returned
-     * @param userPassword password of account to be returned
-     * @return `ArcadeAccount` with specified `accountName` and `accountPassword`
-     */
-    public CasinoAccount getAccount(String userName, String userPassword) {
+//    /**
+//     * @param userName     name of account to be returned
+//     * @param userPassword password of account to be returned
+//     * @return `ArcadeAccount` with specified `accountName` and `accountPassword`
+//     */
+    public CasinoAccount getAccount(String userName) {
         return arcadeAccount.get(userName);
-
-    }
-
-    public Boolean checkPassword(String userName, String userPassword) {
-
-        if (arcadeAccount.containsKey(userName)) {
-            return true;
-        }
-        return false;
     }
 
     /**
