@@ -46,7 +46,6 @@ public class Casino implements Runnable {
                             // TODO - implement better exception handling
                             System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
                             //throw new RuntimeException(String.format(errorMessage, gameSelectionInput));
-                            continue;
                         }
                     } while (!getGameSelectionInput().equals("SLOTS") || !getGameSelectionInput().equals("ROULETTE"));
 
