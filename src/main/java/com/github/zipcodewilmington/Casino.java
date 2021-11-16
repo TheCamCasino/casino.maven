@@ -31,7 +31,7 @@ public class Casino implements Runnable {
 
                 boolean isValidLogin = casinoAccount != null;
 
-                if (isValidLogin) {
+                if (isValidLogin && accountPassword.equals(casinoAccount.getUserPassword())) {
                     String gameSelectionInput = getGameSelectionInput().toUpperCase();
                     if (gameSelectionInput.equals("SLOTS")) {
                         play(new SlotsGame(), new SlotsPlayer());
@@ -54,6 +54,7 @@ public class Casino implements Runnable {
                 console.println("Welcome to the account-creation screen.");
                 String accountName = console.getStringInput("Enter your account name:");
                 String accountPassword = console.getStringInput("Enter your account password:");
+
                 CasinoAccount newAccount = casinoAccountManager.createAccount(accountName, accountPassword);
                 casinoAccountManager.registerAccount(newAccount);
             }
