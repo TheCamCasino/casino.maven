@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino.games.deck;
 
+import java.util.Collections;
 import java.util.Stack;
 
 public class Deck {
@@ -13,7 +14,15 @@ public class Deck {
         }
     }
 
+    public void shuffle(Stack cardStack) {
+        Collections.shuffle(cardStack);
+    }
+
     public Card dealCard() {
         return cardStack.pop();
+    }
+
+    public Integer cardsLeft() {
+        return cardStack.size();
     }
 }
