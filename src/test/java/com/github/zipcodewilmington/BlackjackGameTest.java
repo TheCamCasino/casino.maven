@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class BlackjackGameTest {
     @Test
-    public void createADeckTest() {
+    public void checkForWinTest() {
         
     }
 }
