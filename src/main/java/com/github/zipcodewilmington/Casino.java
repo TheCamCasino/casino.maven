@@ -6,8 +6,8 @@ import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.blackjack.BlackjackGame;
 import com.github.zipcodewilmington.casino.games.blackjack.BlackjackPlayer;
-import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
-import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessPlayer;
+import com.github.zipcodewilmington.casino.games.Roulette.RoulettePlayer;
+import com.github.zipcodewilmington.casino.games.Roulette.RouletteGame;
 import com.github.zipcodewilmington.casino.games.slots.SlotsGame;
 import com.github.zipcodewilmington.casino.games.slots.SlotsPlayer;
 import com.github.zipcodewilmington.utils.AnsiColor;
@@ -43,7 +43,7 @@ public class Casino implements Runnable {
                         if (gameSelectionInput.equals("SLOTS")) {
                             play(new SlotsGame(), new SlotsPlayer());
                         } else if (gameSelectionInput.equals("ROULETTE")) {
-                            play(new NumberGuessGame(), new NumberGuessPlayer());
+                            play(new RouletteGame(), new RoulettePlayer());
                         } else if (gameSelectionInput.equals("BLACKJACK")) {
                             play(new BlackjackGame(), new BlackjackPlayer());
                         } else {
