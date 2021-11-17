@@ -4,6 +4,8 @@ import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.CasinoAccountManager;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
+import com.github.zipcodewilmington.casino.games.blackjack.BlackjackGame;
+import com.github.zipcodewilmington.casino.games.blackjack.BlackjackPlayer;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessPlayer;
 import com.github.zipcodewilmington.casino.games.slots.SlotsGame;
@@ -42,16 +44,17 @@ public class Casino implements Runnable {
                             play(new SlotsGame(), new SlotsPlayer());
                         } else if (gameSelectionInput.equals("ROULETTE")) {
                             play(new NumberGuessGame(), new NumberGuessPlayer());
+                        } else if (gameSelectionInput.equals("BLACKJACK")) {
+                            play(new BlackjackGame(), new BlackjackPlayer());
                         } else {
-                            // TODO - implement better exception handling
                             System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
-                            //throw new RuntimeException(String.format(errorMessage, gameSelectionInput));
                         }
-                    } while (!getGameSelectionInput().equals("SLOTS") || !getGameSelectionInput().equals("ROULETTE"));
+                    } while (!getGameSelectionInput().equals("SLOTS")
+                            || !getGameSelectionInput().equals("ROULETTE")
+                            || !getGameSelectionInput().equals("BLACKJACK"));
 
 
                 } else {
-                    // TODO - implement better exception handling
                     System.out.println("Invalid username or password. Please try again.");
                     continue;
                 }
@@ -80,7 +83,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ SLOTS ], [ ROULETTE ]")
+                .append("\n\t[ BLACKJACK ], [ SLOTS ], [ ROULETTE ]")
                 .toString());
     }
 
