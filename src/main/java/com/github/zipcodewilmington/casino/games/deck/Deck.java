@@ -8,12 +8,12 @@ public class Deck {
     public Deck() {
         for(Suit suit : Suit.values()) { // 4 suits
             for(Rank rank : Rank.values()) { // 13 ranks
-                cardStack.push(new Card(suit, rank)); //52 cards expressed in a few lines
+                cardStack.push(new Card(suit, rank)); //52 cards created
             }
         }
     }
 
-    public Card getCard() {
+    public Card dealCard() {
         return cardStack.pop();
     }
 }
