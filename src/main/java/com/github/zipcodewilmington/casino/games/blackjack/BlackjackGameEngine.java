@@ -8,6 +8,7 @@ import com.github.zipcodewilmington.utils.IOConsole;
 public class BlackjackGameEngine implements GameInterface {
     private final IOConsole console = new IOConsole(AnsiColor.YELLOW);
     PlayerInterface player;
+    BlackjackGame playGame = new BlackjackGame();
 
     @Override
     public void add(PlayerInterface player) {
@@ -37,6 +38,15 @@ public class BlackjackGameEngine implements GameInterface {
                             "\nPlease bet a different amount.");
                     playerBet = getBetInput();
                 }
+
+                //deal the starting cards
+                playGame.startingCards();
+                console.getStringInput("What would you like to do?\n" +
+                        "[ hit ] [ stand ]");
+
+
+
+                //blackjack start method
 
                 /*
                 Game flow:

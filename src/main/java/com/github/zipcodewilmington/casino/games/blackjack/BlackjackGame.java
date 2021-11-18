@@ -6,11 +6,31 @@ import com.github.zipcodewilmington.casino.games.deck.Hand;
 import java.util.Locale;
 
 public class BlackjackGame {
-    Deck deck = new Deck();
-    Hand playerHand = new Hand();
-    Hand dealerHand = new Hand();
+    Deck deck;
+    Hand playerHand;
+    Hand dealerHand;
+    Integer playerBet;
 
+    public BlackjackGame() {
+        this.playerHand = new Hand();
+        this.dealerHand = new Hand();
+        this.deck = new Deck();
+        deck.shuffle();
+    }
 
+    public void startingCards() {
+        //deal 2 cards to dealer, but only show one card for now
+        dealerHand.addCardToHand(deck.dealCard());
+        System.out.println("Dealer's cards:\n" +
+                dealerHand.showPlayerHand() + "[ ?? ]\n");
+        dealerHand.addCardToHand(deck.dealCard());
+
+        //deal 2 cards to player and show
+        playerHand.addCardToHand(deck.dealCard());
+        playerHand.addCardToHand(deck.dealCard());
+        System.out.println("Player's cards:\n" +
+                playerHand.showPlayerHand());
+    }
 
     //hit and stand
     public void hitStand(String input) {

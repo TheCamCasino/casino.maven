@@ -16,9 +16,6 @@ public class BlackjackPlayer implements PlayerInterface {
         return this.casinoAccount;
     }
 
-    public Integer getBalance() {
-        return casinoAccount.getUserBalance();
-    }
 
     @Override
     public <SomeReturnType> SomeReturnType play() {
