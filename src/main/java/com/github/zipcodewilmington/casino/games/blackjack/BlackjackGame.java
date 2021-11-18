@@ -19,12 +19,16 @@ public class BlackjackGame {
         return "Dealer's cards:\n" +
                 dealerHand.getPlayerCard(0) + "[??]\n" +
                 "Player's cards:\n" +
-                playerHand.showPlayerHand();
+                playerHand.showPlayerHand() + "\n" +
+                "Current hand value: " + playerHandValue() + "\n";
     }
 
     public String showPlayerAndFullDealerHands() {
-        return "Player's cards:\n" +
-                dealerHand.showPlayerHand();
+        return "Dealer's cards:\n" +
+                dealerHand.showPlayerHand() + "\n" +
+                "Player's cards:\n" +
+                playerHand.showPlayerHand() + "\n" +
+                "Current hand value: " + playerHandValue() + "\n";
     }
 
     public void startingCards() {
@@ -51,13 +55,16 @@ public class BlackjackGame {
         return dealerHand.getValue();
     }
 
-    //dealer moves
-    public void dealerPlay() {
-        if (dealerHand.getValue() < 17) {
+    public Boolean dealerPlay() {
+        if (dealerHandValue() < 17) {
             dealerHand.addCardToHand(deck.dealCard());
-        } else if (dealerBust()) {
 
+            if (dealerBust()) {
+                return false;
+            }
+            return true;
         }
+        return true;
     }
 
     public Boolean playerBust() {

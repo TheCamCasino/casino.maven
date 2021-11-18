@@ -8,25 +8,33 @@ import com.github.zipcodewilmington.utils.IOConsole;
 public class BlackjackGameEngine implements GameInterface {
     private final IOConsole console = new IOConsole(AnsiColor.YELLOW);
     private PlayerInterface player;
-    private BlackjackGame gamePlay = new BlackjackGame();
+    private BlackjackGame bj = new BlackjackGame();
     private Integer playerBet;
-    private Boolean winner = false;
+    private Integer balance;
     private String input;
 
     @Override
-    public void run() {
-        Integer balance;
-        System.out.println(">>> ♠ ♠ ♠ Welcome to Blackjack! ♠ ♠ ♠ <<<");
+    public void add(PlayerInterface player) {
+        this.player = player;
+    }
 
-        while (!winner) {
-            String blackjackDashboardInput;
-            balance = player.getArcadeAccount().getUserBalance();
+    @Override
+    public void remove(PlayerInterface player) {
+        this.player = null;
+    }
+
+    @Override
+    public void run() {
+        System.out.println(">>> ♠ ♠ ♠ Welcome to Blackjack! ♠ ♠ ♠ <<<");
+        balance = player.getArcadeAccount().getUserBalance();
+        playerBet = 0;
+        String blackjackDashboardInput;
 
             do {
                 blackjackDashboardInput = getBlackjackDashboardInput();
 
                 if (blackjackDashboardInput.equalsIgnoreCase("yes")) {
-
+                    bj.newRound();
                     //if playerBet exceeds player's balance, player must bet a different amount
                     playerBet = getBetInput();
                     while (playerBet > balance) {
@@ -36,22 +44,54 @@ public class BlackjackGameEngine implements GameInterface {
                     }
 
                     //deal and show starting cards
-                    gamePlay.startingCards();
-                    System.out.println(gamePlay.showPlayerAndDealerHands());
+                    bj.startingCards();
+                    System.out.println(bj.showPlayerAndDealerHands());
 
                     //player gets to hit or stand
                     input = getHitStandInput();
                     while (input.equalsIgnoreCase("hit")) {
-                        gamePlay.hit();
+                        bj.hit();
 
-                        System.out.println(gamePlay.showPlayerAndDealerHands());
+                        System.out.println(bj.showPlayerAndDealerHands());
 
-                        if (gamePlay.playerBust()) {
-                            System.out.println("Busted! You've lost this round.");
-                            balance = balance - playerBet;
-                            break;
+                        if (bj.playerBust()) {
+                            player.getArcadeAccount().setUserBalance(balance - playerBet);
+                            balance = player.getArcadeAccount().getUserBalance();
+                            System.out.println("Busted! You've lost this round. " +
+                                    "Your current balance is: " + balance);
                         }
                         input = getHitStandInput();
+                    }
+
+                    if (input.equalsIgnoreCase("stand")) {
+                        //player stands and dealer plays
+                        System.out.println(bj.showPlayerAndFullDealerHands());
+                        if (bj.dealerPlay()) {
+                            System.out.println(bj.showPlayerAndFullDealerHands());
+
+                            if (bj.playerHandValue() < bj.dealerHandValue()) {
+                                player.getArcadeAccount().setUserBalance(balance - playerBet);
+                                balance = player.getArcadeAccount().getUserBalance();
+                                System.out.println("House wins this round.\n" +
+                                        "Your current balance is: " + balance);
+
+                            } else if (bj.playerHandValue() > bj.dealerHandValue()){
+                                player.getArcadeAccount().setUserBalance(balance + playerBet);
+                                balance = player.getArcadeAccount().getUserBalance();
+                                System.out.println("You win this round! \n" +
+                                        "Your current balance is: " + balance);
+
+                            } else if (bj.playerHandValue().equals(bj.dealerHandValue())) {
+                                System.out.println("This round is a tie. Your bet is returned to you.");
+                            }
+                        } else {
+                            player.getArcadeAccount().setUserBalance(balance + playerBet);
+                            balance = player.getArcadeAccount().getUserBalance();
+
+                            System.out.println(bj.showPlayerAndFullDealerHands() +
+                                    "You win this round! \n" +
+                                    "Your current balance is: " + balance);
+                        }
                     }
 
                 /*
@@ -72,10 +112,6 @@ public class BlackjackGameEngine implements GameInterface {
                 }
 
             } while (!blackjackDashboardInput.equalsIgnoreCase("no"));
-
-        }
-
-
     }
 
     private String getBlackjackDashboardInput() {
@@ -85,22 +121,13 @@ public class BlackjackGameEngine implements GameInterface {
 
     private Integer getBetInput() {
         Integer balance = player.getArcadeAccount().getUserBalance();
-        return console.getIntegerInput("How much would you like to bet? (whole values only)\n" +
+        return console.getIntegerInput("How much would you like to bet?\n" +
                 "Your current balance is: " + balance);
     }
 
     private String getHitStandInput() {
-        return console.getStringInput("What would you like to do?\n" +
-                "[ hit ] [ stand ]");
+        return console.getStringInput("Would you like to: \n" +
+                "[ hit ] or [ stand ] ?");
     }
 
-    @Override
-    public void add(PlayerInterface player) {
-        this.player = player;
-    }
-
-    @Override
-    public void remove(PlayerInterface player) {
-        this.player = null;
-    }
 }
