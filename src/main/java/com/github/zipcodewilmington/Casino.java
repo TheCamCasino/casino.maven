@@ -4,6 +4,7 @@ import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.CasinoAccountManager;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
+import com.github.zipcodewilmington.casino.games.GoldFish.GoldFishGameEngine;
 import com.github.zipcodewilmington.casino.games.blackjack.BlackjackGame;
 import com.github.zipcodewilmington.casino.games.blackjack.BlackjackPlayer;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
@@ -40,8 +41,8 @@ public class Casino implements Runnable {
                     do {
                         gameSelectionInput = getGameSelectionInput().toUpperCase();
 
-                        if (gameSelectionInput.equals("SLOTS")) {
-                            play(new SlotsGame(), new SlotsPlayer());
+                        if (gameSelectionInput.equals("GOFISH")) {
+                            play(new GoldFishGameEngine(), new GoldFishGameEngine());
                         } else if (gameSelectionInput.equals("ROULETTE")) {
                             play(new NumberGuessGame(), new NumberGuessPlayer());
                         } else if (gameSelectionInput.equals("BLACKJACK")) {
@@ -49,10 +50,9 @@ public class Casino implements Runnable {
                         } else {
                             System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
                         }
-                    } while (!getGameSelectionInput().equals("SLOTS")
+                    } while (!getGameSelectionInput().equals("GOFISH")
                             || !getGameSelectionInput().equals("ROULETTE")
                             || !getGameSelectionInput().equals("BLACKJACK"));
-
 
                 } else {
                     System.out.println("Invalid username or password. Please try again.");
@@ -83,7 +83,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ BLACKJACK ], [ SLOTS ], [ ROULETTE ]")
+                .append("\n\t[ BLACKJACK ], [ GOFISH ], [ ROULETTE ]")
                 .toString());
     }
 

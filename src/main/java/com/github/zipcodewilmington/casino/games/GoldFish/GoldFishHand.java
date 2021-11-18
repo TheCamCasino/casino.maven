@@ -1,21 +1,45 @@
 package com.github.zipcodewilmington.casino.games.GoldFish;
 
 import com.github.zipcodewilmington.casino.games.deck.Card;
-import com.github.zipcodewilmington.casino.games.deck.Rank;
-import com.github.zipcodewilmington.casino.games.deck.Suit;
+import java.util.ArrayList;
+
 
 public class GoldFishHand {
+    private ArrayList<Card> cards;
 
-    public static void main(String[] args) {
-        Card test1, test2;
-        test1 = new Card(Suit.HEARTS, Rank.ACE); //Need Ace 1;
-        test2 = new Card(Suit.CLUBS, Rank.QUEEN);
+    //constructor set the cards to a new arraylist
+    public GoldFishHand() {
+        cards = new ArrayList<>();
 
-        System.out.println(test1.toString() + "\n" + test2.toString());
-
-        //Flip cards
-        test1.toString();
-        test2.toString();
     }
 
+    public void clear() {
+        // Clearing all cards
+        cards.clear();
+    }
+
+    public void add(Card card) {
+        // adding a card
+        cards.add(card);
+    }
+
+    public String showGoldFishHand() {
+        String hand = "";
+        for (Card c : cards) {
+            hand += hand.toString();
+        }
+    return hand;   // Will show hand
+    }
+    public boolean giveCard(Card card, GoldFishHand otherHand) {
+        // Give card if card matches GoldFish
+        if (!cards.contains(card)) {
+            return false;
+        } else {
+            // removes card from hand
+            cards.remove(card);
+            // was able to give card to other player
+            otherHand.add(card);
+            return true;
+        }
+    }
 }
