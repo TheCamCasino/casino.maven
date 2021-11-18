@@ -7,57 +7,58 @@ import com.github.zipcodewilmington.utils.IOConsole;
 
 public class BlackjackGameEngine implements GameInterface {
     private final IOConsole console = new IOConsole(AnsiColor.YELLOW);
-    PlayerInterface player;
-    BlackjackGame playGame = new BlackjackGame();
-
-
-    @Override
-    public void add(PlayerInterface player) {
-        this.player = player;
-    }
-
-    @Override
-    public void remove(PlayerInterface player) {
-        this.player = null;
-    }
-
-
+    private PlayerInterface player;
+    private BlackjackGame gamePlay = new BlackjackGame();
+    private Integer playerBet;
+    private Boolean winner = false;
+    private String input;
 
     @Override
     public void run() {
-        String blackjackDashboardInput;
-        Integer playerBet;
-        String hitStand;
-        Integer balance = player.getArcadeAccount().getUserBalance();
+        Integer balance;
+        System.out.println(">>> ♠ ♠ ♠ Welcome to Blackjack! ♠ ♠ ♠ <<<");
 
-        do {
-            blackjackDashboardInput = getBlackjackDashboardInput();
+        while (!winner) {
+            String blackjackDashboardInput;
+            balance = player.getArcadeAccount().getUserBalance();
 
-            if (blackjackDashboardInput.equalsIgnoreCase("play")) {
-                playerBet = getBetInput();
+            do {
+                blackjackDashboardInput = getBlackjackDashboardInput();
 
-                //if playerBet exceeds player's balance, player must bet a different amount
-                while (playerBet > balance) {
-                    System.out.println("Your bet exceeds your account balance of: " + balance +
-                            "\nPlease bet a different amount.");
+                if (blackjackDashboardInput.equalsIgnoreCase("yes")) {
+
+                    //if playerBet exceeds player's balance, player must bet a different amount
                     playerBet = getBetInput();
-                }
+                    while (playerBet > balance) {
+                        System.out.println("Your bet exceeds your account balance of: " + balance +
+                                "\nPlease bet a different amount.");
+                        playerBet = getBetInput();
+                    }
 
-                //deal the starting cards
-                playGame.startingCards();
+                    //deal and show starting cards
+                    gamePlay.startingCards();
+                    System.out.println(gamePlay.showPlayerAndDealerHands());
 
-                //
-                playGame.hitStand(getHitStandInput());
+                    //player gets to hit or stand
+                    input = getHitStandInput();
+                    while (input.equalsIgnoreCase("hit")) {
+                        gamePlay.hit();
 
+                        System.out.println(gamePlay.showPlayerAndDealerHands());
 
-                //blackjack start method
+                        if (gamePlay.playerBust()) {
+                            System.out.println("Busted! You've lost this round.");
+                            balance = balance - playerBet;
+                            break;
+                        }
+                        input = getHitStandInput();
+                    }
 
                 /*
                 Game flow:
                     - player is prompted to make a bet
-                    - player's bet cannot exceed balance
-                    - player is dealt 2 cards
-                    - dealer is dealt 2 cards
+                        - player's bet cannot exceed balance
+                    - player is dealt 2 cards & dealer is dealt 2 cards
                     - player goes first, prompted to hit/stand/split
                     - check player's hand for total - bust(immediate loss)/blackjack
                     - dealer goes next if player stands or has blackjack
@@ -68,16 +69,18 @@ public class BlackjackGameEngine implements GameInterface {
                     - increase or decrease player balance
                  */
 
-            }
+                }
 
-        } while (!blackjackDashboardInput.equalsIgnoreCase("leave"));
+            } while (!blackjackDashboardInput.equalsIgnoreCase("no"));
+
+        }
+
 
     }
 
     private String getBlackjackDashboardInput() {
-        return console.getStringInput("Welcome to Blackjack!\n" +
-                "What would you like to do?\n" +
-                "[ play ] [ leave ]");
+        return console.getStringInput("Would you like to start a new round of Blackjack?\n" +
+                "[ yes ] [ no ]");
     }
 
     private Integer getBetInput() {
@@ -89,5 +92,15 @@ public class BlackjackGameEngine implements GameInterface {
     private String getHitStandInput() {
         return console.getStringInput("What would you like to do?\n" +
                 "[ hit ] [ stand ]");
+    }
+
+    @Override
+    public void add(PlayerInterface player) {
+        this.player = player;
+    }
+
+    @Override
+    public void remove(PlayerInterface player) {
+        this.player = null;
     }
 }
