@@ -31,6 +31,9 @@ public class BlackjackGameEngine implements GameInterface {
         String blackjackDashboardInput;
 
             do {
+                if (balance <= 0) {
+                    throw new RuntimeException("No money? No games for you!");
+                }
                 blackjackDashboardInput = getBlackjackDashboardInput();
 
                 if (blackjackDashboardInput.equalsIgnoreCase("yes")) {
