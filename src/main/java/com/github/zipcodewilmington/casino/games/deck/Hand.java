@@ -32,6 +32,15 @@ public class Hand {
         return playerHand;
     }
 
+    public Integer getHandValue() {
+        Integer sum = 0;
+        for(Card card : playerHand) {
+            if (card.getRank() != Rank.ACE)
+            sum += card.getRank().getSecondaryValue();
+        }
+        return sum;
+    }
+
     public Integer getHandSize() {
         return playerHand.size();
     }

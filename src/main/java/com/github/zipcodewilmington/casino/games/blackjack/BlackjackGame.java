@@ -18,6 +18,11 @@ public class BlackjackGame {
         deck.shuffle();
     }
 
+    public String printPlayerHand() {
+        return "Player's cards:\n" +
+                playerHand.showPlayerHand();
+    }
+
     public void startingCards() {
         //deal 2 cards to dealer, but only show one card for now
         dealerHand.addCardToHand(deck.dealCard());
@@ -28,18 +33,19 @@ public class BlackjackGame {
         //deal 2 cards to player and show
         playerHand.addCardToHand(deck.dealCard());
         playerHand.addCardToHand(deck.dealCard());
-        System.out.println("Player's cards:\n" +
-                playerHand.showPlayerHand());
+        System.out.println(printPlayerHand());
     }
 
     //hit and stand
     public void hitStand(String input) {
-        if (input.toLowerCase().equals("hit")) {
 
+        if (input.toLowerCase().equals("hit")) {
+            playerHand.addCardToHand(deck.dealCard());
+            System.out.println(printPlayerHand());
         } else if (input.toLowerCase().equals("stand")) {
 
         } else {
-
+            System.out.println();
         }
     }
 

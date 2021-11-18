@@ -10,6 +10,7 @@ public class BlackjackGameEngine implements GameInterface {
     PlayerInterface player;
     BlackjackGame playGame = new BlackjackGame();
 
+
     @Override
     public void add(PlayerInterface player) {
         this.player = player;
@@ -20,17 +21,20 @@ public class BlackjackGameEngine implements GameInterface {
         this.player = null;
     }
 
+
+
     @Override
     public void run() {
         String blackjackDashboardInput;
         Integer playerBet;
+        String hitStand;
+        Integer balance = player.getArcadeAccount().getUserBalance();
 
         do {
             blackjackDashboardInput = getBlackjackDashboardInput();
 
             if (blackjackDashboardInput.equalsIgnoreCase("play")) {
                 playerBet = getBetInput();
-                Integer balance = player.getArcadeAccount().getUserBalance();
 
                 //if playerBet exceeds player's balance, player must bet a different amount
                 while (playerBet > balance) {
@@ -41,9 +45,9 @@ public class BlackjackGameEngine implements GameInterface {
 
                 //deal the starting cards
                 playGame.startingCards();
-                console.getStringInput("What would you like to do?\n" +
-                        "[ hit ] [ stand ]");
 
+                //
+                playGame.hitStand(getHitStandInput());
 
 
                 //blackjack start method
@@ -77,6 +81,13 @@ public class BlackjackGameEngine implements GameInterface {
     }
 
     private Integer getBetInput() {
-        return console.getIntegerInput("How much would you like to bet? (whole values only)");
+        Integer balance = player.getArcadeAccount().getUserBalance();
+        return console.getIntegerInput("How much would you like to bet? (whole values only)\n" +
+                "Your current balance is: " + balance);
+    }
+
+    private String getHitStandInput() {
+        return console.getStringInput("What would you like to do?\n" +
+                "[ hit ] [ stand ]");
     }
 }
