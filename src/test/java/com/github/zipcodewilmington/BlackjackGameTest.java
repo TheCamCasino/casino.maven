@@ -76,4 +76,22 @@ public class BlackjackGameTest {
         //Then
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void playerBustTest() {
+        //Given
+        bj.newRound();
+        presetCards.add(aceOfSpades);
+        presetCards.add(queenOfHearts);
+        presetCards.add(jackOfClubs);
+        presetCards.add(sevenOfDiamonds);
+        Boolean expected = true;
+
+        //When
+        bj.setPlayerHand(presetCards);
+        Boolean actual = bj.playerBust();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
 }

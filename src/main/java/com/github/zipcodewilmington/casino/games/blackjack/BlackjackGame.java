@@ -3,6 +3,7 @@ package com.github.zipcodewilmington.casino.games.blackjack;
 import com.github.zipcodewilmington.casino.games.deck.Card;
 import com.github.zipcodewilmington.casino.games.deck.Deck;
 import com.github.zipcodewilmington.casino.games.deck.Hand;
+import com.github.zipcodewilmington.casino.games.deck.Rank;
 
 import java.util.ArrayList;
 
@@ -81,8 +82,26 @@ public class BlackjackGame {
     }
 
     public Boolean playerBlackjack() {
-        if (playerHand.getValue().equals(21)) {
-            return true;
+        Rank firstCard = playerHand.getPlayerCard(0).getRank();
+        Rank secondCard = playerHand.getPlayerCard(1).getRank();
+        Rank jack = Rank.JACK;
+        Rank queen = Rank.QUEEN;
+        Rank king = Rank.KING;
+        Rank ace = Rank.ACE;
+
+        Boolean isTwentyOne = playerHand.getValue().equals(21);
+
+        if (isTwentyOne) {
+            if (firstCard.equals(jack) && secondCard.equals(ace)
+                    || firstCard.equals(ace) && secondCard.equals(jack)) {
+                return true;
+            } else if (firstCard.equals(queen) && secondCard.equals(ace)
+                    || firstCard.equals(ace) && secondCard.equals(queen)) {
+                return true;
+            } else if (firstCard.equals(king) && secondCard.equals(ace)
+                    || firstCard.equals(ace) && secondCard.equals(king)) {
+                return true;
+            }
         }
         return false;
     }
@@ -108,6 +127,11 @@ public class BlackjackGame {
 
     public Integer setDealerHand(ArrayList<Card> cards) {
         dealerHand.setPlayerHand(cards);
+        return playerHandValue();
+    }
+
+    public Integer setPlayerHand(ArrayList<Card> cards) {
+        playerHand.setPlayerHand(cards);
         return playerHandValue();
     }
 

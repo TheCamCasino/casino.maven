@@ -12,7 +12,6 @@ public class BlackjackGameEngine implements GameInterface {
     private Integer playerBet;
     private Integer balance;
     private String input;
-    //private BlackjackPlayer player1;
 
     @Override
     public void add(PlayerInterface player) {
@@ -26,7 +25,7 @@ public class BlackjackGameEngine implements GameInterface {
 
     @Override
     public void run() {
-        System.out.println("\u001B[33m>>> ♠ ♠ ♠ Welcome to Blackjack! ♠ ♠ ♠ <<<");
+        welcomeToBlackjackScreen();
         balance = player.getArcadeAccount().getUserBalance();
         playerBet = 0;
         String blackjackDashboardInput;
@@ -55,6 +54,7 @@ public class BlackjackGameEngine implements GameInterface {
 
                     //player gets to hit or stand
                     input = getHitStandInput();
+
                     while (input.equalsIgnoreCase("hit")) {
                         bj.hit();
 
@@ -63,10 +63,27 @@ public class BlackjackGameEngine implements GameInterface {
                         if (bj.playerBust()) {
                             player.getArcadeAccount().setUserBalance(balance - playerBet);
                             balance = player.getArcadeAccount().getUserBalance();
-                            System.out.println("Busted! You've lost this round. " +
+                            System.out.println("Busted! You've lost this round.\n" +
                                     "Your current balance is: " + balance);
+                            break;
                         }
                         input = getHitStandInput();
+                    }
+
+                    if (input.equalsIgnoreCase("double-down")) {
+                        bj.hit();
+                        System.out.println(bj.showPlayerAndDealerHands());
+
+                        if (bj.playerBust()) {
+                            if (bj.playerBust()) {
+                                player.getArcadeAccount().setUserBalance(balance - playerBet);
+                                balance = player.getArcadeAccount().getUserBalance();
+                                System.out.println("Busted! You've lost this round.\n" +
+                                        "Your current balance is: " + balance);
+                                break;
+                            }
+                        }
+                        input = "stand";
                     }
 
                     if (input.equalsIgnoreCase("stand")) {
@@ -75,15 +92,23 @@ public class BlackjackGameEngine implements GameInterface {
                         if (bj.dealerPlay()) {
                             System.out.println(bj.showPlayerAndFullDealerHands());
 
-                            if (bj.playerHandValue() < bj.dealerHandValue()) {
+                            if (bj.playerHandValue() > bj.dealerHandValue() && bj.playerBlackjack()) {
+                                player.getArcadeAccount().setUserBalance(balance + (playerBet*2));
+                                balance = player.getArcadeAccount().getUserBalance();
+
+                                System.out.println("You got BLACKJACK! \n" +
+                                        "Your current balance is: " + balance);
+                            } else if (bj.playerHandValue() < bj.dealerHandValue()) {
                                 player.getArcadeAccount().setUserBalance(balance - playerBet);
                                 balance = player.getArcadeAccount().getUserBalance();
+
                                 System.out.println("House wins this round.\n" +
                                         "Your current balance is: " + balance);
 
                             } else if (bj.playerHandValue() > bj.dealerHandValue()){
                                 player.getArcadeAccount().setUserBalance(balance + playerBet);
                                 balance = player.getArcadeAccount().getUserBalance();
+
                                 System.out.println("You win this round! \n" +
                                         "Your current balance is: " + balance);
 
@@ -133,7 +158,27 @@ public class BlackjackGameEngine implements GameInterface {
 
     private String getHitStandInput() {
         return console.getStringInput("Would you like to: \n" +
-                "[ hit ] or [ stand ] ?");
+                "[ hit ] , [ stand ] or [ double-down ] ?");
+    }
+
+    private void welcomeToBlackjackScreen() {
+        //System.out.println("\u001B[33mWelcome to >>> ♠ ♠ ♠ Blackjack! ♠ ♠ ♠ <<<");
+
+        System.out.println("\u001B[33m#     #                                                           \n" +
+                "#  #  # ###### #       ####   ####  #    # ######    #####  ####  \n" +
+                "#  #  # #      #      #    # #    # ##  ## #           #   #    # \n" +
+                "#  #  # #####  #      #      #    # # ## # #####       #   #    # \n" +
+                "#  #  # #      #      #      #    # #    # #           #   #    # \n" +
+                "#  #  # #      #      #    # #    # #    # #           #   #    # \n" +
+                " ## ##  ###### ######  ####   ####  #    # ######      #    ####  \n" +
+                "                                                                  \n" +
+                "######                                                          #    \n" +
+                "#     # #        ##    ####  #    #      #   ##    ####  #    # #    \n" +
+                "#     # #       #  #  #    # #   #       #  #  #  #    # #   #  #    \n" +
+                "######  #      #    # #      ####        # #    # #      ####   #     \n" +
+                "#     # #      ###### #      #  #        # ###### #      #  #   #      \n" +
+                "#     # #      #    # #    # #   #  #    # #    # #    # #   #       \n" +
+                "######  ###### #    #  ####  #    #  ####  #    #  ####  #    # #    ");
     }
 
 }
