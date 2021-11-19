@@ -9,26 +9,23 @@ import java.util.ArrayList;
 public class GoFishHand {
 
 private ArrayList<Card> playerHand;
+private ArrayList<Card> opponentHand;
 
     public GoFishHand() {
         this.playerHand = new ArrayList<>();
+        this.opponentHand = new ArrayList<>();
     }
 
    public String showPlayerHand() {
         String showCards = "";
         for (Card card : playerHand) {
             showCards += card.toString();
-
         }
         return showCards;
    }
 
    public void addPlayerCards(Card card) {
         this.playerHand.add(card);
-   }
-
-   public void clearHand() {
-        this.playerHand.removeAll(this.playerHand);
    }
 
    public ArrayList<String> getRank() {
@@ -39,12 +36,24 @@ private ArrayList<Card> playerHand;
        return ranks;
    }
 
+    public ArrayList<String> getOpponentRank() {
+        ArrayList<String> ranks = new ArrayList<String>();
+        for (Card card : opponentHand) {
+            ranks.add(card.getRank().toString());
+        }
+        return ranks;
+    }
+
     public ArrayList<Card> getPlayerHand() {
         return playerHand;
     }
 
     public void setPlayerHand(ArrayList<Card> hand) {
         this.playerHand = hand;
+    }
+
+    public void setOpponentHand(ArrayList<Card> hand) {
+        this.opponentHand = hand;
     }
 
     public void addCards(ArrayList<Card> cardsToAdd) {
@@ -59,7 +68,5 @@ private ArrayList<Card> playerHand;
         for (int i = 0; i < 7; i++) {
             addPlayerCards(deck.dealCard());
         }
-
     }
-
 }
