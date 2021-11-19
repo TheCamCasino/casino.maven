@@ -12,6 +12,7 @@ public class BlackjackGameEngine implements GameInterface {
     private Integer playerBet;
     private Integer balance;
     private String input;
+    //private BlackjackPlayer player1;
 
     @Override
     public void add(PlayerInterface player) {
@@ -25,7 +26,7 @@ public class BlackjackGameEngine implements GameInterface {
 
     @Override
     public void run() {
-        System.out.println(">>> ♠ ♠ ♠ Welcome to Blackjack! ♠ ♠ ♠ <<<");
+        System.out.println("\u001B[33m>>> ♠ ♠ ♠ Welcome to Blackjack! ♠ ♠ ♠ <<<");
         balance = player.getArcadeAccount().getUserBalance();
         playerBet = 0;
         String blackjackDashboardInput;
@@ -38,8 +39,10 @@ public class BlackjackGameEngine implements GameInterface {
 
                 if (blackjackDashboardInput.equalsIgnoreCase("yes")) {
                     bj.newRound();
+
                     //if playerBet exceeds player's balance, player must bet a different amount
                     playerBet = getBetInput();
+
                     while (playerBet > balance) {
                         System.out.println("Your bet exceeds your account balance of: " + balance +
                                 "\nPlease bet a different amount.");

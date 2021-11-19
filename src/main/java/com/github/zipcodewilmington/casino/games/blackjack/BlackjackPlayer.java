@@ -21,4 +21,8 @@ public class BlackjackPlayer implements PlayerInterface {
     public <SomeReturnType> SomeReturnType play() {
         return null;
     }
+
+    public Integer getBalance() {
+        return this.casinoAccount.getUserBalance();
+    }
 }

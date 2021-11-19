@@ -1,7 +1,10 @@
 package com.github.zipcodewilmington.casino.games.blackjack;
 
+import com.github.zipcodewilmington.casino.games.deck.Card;
 import com.github.zipcodewilmington.casino.games.deck.Deck;
 import com.github.zipcodewilmington.casino.games.deck.Hand;
+
+import java.util.ArrayList;
 
 public class BlackjackGame {
     Deck deck;
@@ -55,16 +58,33 @@ public class BlackjackGame {
         return dealerHand.getValue();
     }
 
+    public Integer getPlayerHandSize() {
+        return playerHand.getHandSize();
+    }
+
+    public Integer getDealerHandSize() {
+        return dealerHand.getHandSize();
+    }
+
     public Boolean dealerPlay() {
         if (dealerHandValue() < 17) {
             dealerHand.addCardToHand(deck.dealCard());
 
             if (dealerBust()) {
                 return false;
+            } else if (dealerBust()) {
+                return false;
             }
             return true;
         }
         return true;
+    }
+
+    public Boolean playerBlackjack() {
+        if (playerHand.getValue().equals(21)) {
+            return true;
+        }
+        return false;
     }
 
     public Boolean playerBust() {
@@ -86,5 +106,9 @@ public class BlackjackGame {
         dealerHand.clearHand();
     }
 
+    public Integer setDealerHand(ArrayList<Card> cards) {
+        dealerHand.setPlayerHand(cards);
+        return playerHandValue();
+    }
 
 }
