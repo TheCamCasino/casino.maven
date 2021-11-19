@@ -5,6 +5,7 @@ import com.github.zipcodewilmington.casino.CasinoAccountManager;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.blackjack.BlackjackGame;
+import com.github.zipcodewilmington.casino.games.blackjack.BlackjackGameEngine;
 import com.github.zipcodewilmington.casino.games.blackjack.BlackjackPlayer;
 import com.github.zipcodewilmington.casino.games.Roulette.RoulettePlayer;
 import com.github.zipcodewilmington.casino.games.Roulette.RouletteGame;
@@ -45,7 +46,7 @@ public class Casino implements Runnable {
                         } else if (gameSelectionInput.equals("ROULETTE")) {
                             play(new RouletteGame(), new RoulettePlayer(casinoAccount));
                         } else if (gameSelectionInput.equals("BLACKJACK")) {
-                            play(new BlackjackGame(), new BlackjackPlayer());
+                            play(new BlackjackGameEngine(), new BlackjackPlayer(casinoAccount));
                         } else {
                             System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
                         }

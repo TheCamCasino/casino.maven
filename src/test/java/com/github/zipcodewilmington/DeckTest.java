@@ -1,18 +1,16 @@
 package com.github.zipcodewilmington;
 
-import com.github.zipcodewilmington.casino.games.deck.Card;
-import com.github.zipcodewilmington.casino.games.deck.Deck;
-import com.github.zipcodewilmington.casino.games.deck.Rank;
-import com.github.zipcodewilmington.casino.games.deck.Suit;
+import com.github.zipcodewilmington.casino.games.deck.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class DeckTest {
+    Hand playerHand = new Hand();
+    Deck deck = new Deck();
 
     @Test
     public void deckHasFiftyTwoCardsTest() {
         //Given
-        Deck deck = new Deck();
         Integer expected = 52;
 
         //When
@@ -25,7 +23,6 @@ public class DeckTest {
     @Test
     public void dealACardTest() {
         //Given
-        Deck deck = new Deck();
         Integer expected = 51;
 
         //When
@@ -39,7 +36,6 @@ public class DeckTest {
     @Test
     public void shuffleTest() {
         //Given
-        Deck deck = new Deck();
         Card card = new Card(Suit.CLUBS, Rank.ACE);
 
         //When
@@ -48,6 +44,24 @@ public class DeckTest {
 
         //Then
         Assert.assertNotEquals(card, dealtCard);
+    }
+
+    @Test
+    public void dealCardToPlayerHandTest() {
+        //Given
+        Integer expected = 4;
+        deck.shuffle();
+
+        //When
+        playerHand.addCardToHand(deck.dealCard());
+        playerHand.addCardToHand(deck.dealCard());
+        playerHand.addCardToHand(deck.dealCard());
+        playerHand.addCardToHand(deck.dealCard());
+
+        Integer actual = playerHand.getHandSize();
+
+        //Then
+        Assert.assertEquals(expected, actual);
     }
 
 }
