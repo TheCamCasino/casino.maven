@@ -2,33 +2,35 @@ package com.github.zipcodewilmington.casino.games.Roulette;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
+import java.util.Arrays;
 import java.util.Locale;
-import java.util.Random;
+
 
 /**
  * Created by leon on 7/21/2020.
  */
 public class RouletteInterface {
 
-    public static int spinWheel() {
+    public int spinWheel() {
         int spin = (int) (Math.random() * 38);
         int result = spin;
         return result;
     }
 
-    public static int determineWinnings(String[] playerBets, int winningNumber) {
+    public int determineWinnings(String[] playerBets, int winningNumber) {
         int balanceChange = 0;
 
         for (String playerbet : playerBets) {
             String[] whereBet = playerbet.split(":");
             String[] typeBet = whereBet[0].split(",");
             int bet = Integer.parseInt((whereBet[1]));
-            int spot1 = Integer.parseInt(typeBet[1]);
+            int spot1 = 0;
             int spot2 = 0;
             int spot3 = 0;
             int spot4 = 0;
 
             try {
+                spot1 = Integer.parseInt(typeBet[1]);
                 spot2 = Integer.parseInt(whereBet[2]);
                 spot3 = Integer.parseInt(whereBet[3]);
                 spot4 = Integer.parseInt(whereBet[4]);
@@ -146,72 +148,144 @@ public class RouletteInterface {
         return balanceChange;
     }
 
-    private static boolean checkIfTrio(int winningNumber, int spot1, int spot2, int spot3) {
-        return true;
+    public boolean checkIfTrio(int winningNumber, int spot1, int spot2, int spot3) {
+        if(checkIfSplit(winningNumber,spot1,spot2) || (checkOneNumber(winningNumber,spot3))){
+            return true;
+        }else {
+            return false;
+        }
     }
 
-    private static boolean checkIfLine(int winningNumber, int spot1, int spot2) {
-        return true;
+    public static boolean checkIfLine(int winningNumber, int spot1, int spot2) {
+        if (winningNumber >= spot1 && winningNumber <= spot2){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    private static boolean checkIfCorner(int winningNumber, int spot1, int spot2, int spot3, int spot4) {
-        return true;
+    public static boolean checkIfCorner(int winningNumber, int spot1, int spot2, int spot3, int spot4) {
+        if(checkIfSplit(winningNumber,spot1,spot2) || checkIfSplit(winningNumber,spot3,spot4)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    private static boolean checkIfSplit(int winningNumber, int spot1, int spot2) {
-        return true;
+    public static boolean checkIfSplit(int winningNumber, int spot1, int spot2) {
+        if(checkOneNumber(winningNumber,spot1) || checkOneNumber(winningNumber,spot2)){
+            return true;
+        }else {
+            return false;
+        }
     }
 
-    private static boolean checkOneNumber(int winningNumber, int spot1) {
-        return  true;
+    public static boolean checkOneNumber(int winningNumber, int spot1) {
+        if(winningNumber == spot1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    private static boolean checkIfDozen3(int winningNumber) {
-        return true;
+    public static boolean checkIfDozen3(int winningNumber) {
+        if(winningNumber > 24 && winningNumber < 37){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    private static boolean checkIfDozen2(int winningNumber) {
-        return true;
+    public static boolean checkIfDozen2(int winningNumber) {
+        if(winningNumber > 12 && winningNumber < 25){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    private static boolean checkIfDozen1(int winningNumber) {
-        return true;
+    public static boolean checkIfDozen1(int winningNumber) {
+        if(winningNumber > 0 && winningNumber < 13){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    private static boolean checkIfColumn3(int winningNumber) {
-        return true;
+    public static boolean checkIfColumn3(int winningNumber) {
+        int[] Column3 = {3,6,9,12,15,18,21,24,27,30,33,36};
+        if (Arrays.asList(Column3).contains(winningNumber)){
+            return true;
+        }else {
+            return true;
+        }
     }
 
-    private static boolean checkIfColumn2(int winningNumber) {
-        return true;
+    public static boolean checkIfColumn2(int winningNumber) {
+        int[] Column2 = {2,5,8,11,14,17,20,23,26,29,32,35};
+        if (Arrays.asList(Column2).contains(winningNumber)){
+            return true;
+        }else {
+            return true;
+        }
     }
 
-    private static boolean checkIfColumn1(int winningNumber) {
-        return true;
+    public static boolean checkIfColumn1(int winningNumber) {
+        int[] Column1 = {1,4,7,10,13,16,19,22,25,28,31,34};
+        if (Arrays.asList(Column1).contains(winningNumber)){
+            return true;
+        }else {
+            return true;
+        }
     }
 
-    private static boolean checkIfLow(int winningNumber) {
-        return true;
+    public static boolean checkIfLow(int winningNumber) {
+        if(winningNumber < 19){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    private static boolean checkIfHigh(int winningNumber) {
-        return true;
+    public static boolean checkIfHigh(int winningNumber) {
+        if(winningNumber > 18) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    private static boolean checkIfOdd(int winningNumber) {
-        return true;
+    public static boolean checkIfOdd(int winningNumber) {
+        if(!checkIfEven(winningNumber)) {
+            return  true;
+        }else {
+            return true;
+        }
     }
 
-    private static boolean checkIfEven(int winningNumber) {
-        return true;
+    public static boolean checkIfEven(int winningNumber) {
+        if((winningNumber % 2) == 0) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    private static boolean checkIfBlack(int winningNumber) {
+    public static boolean checkIfBlack(int winningNumber) {
+        if(!checkIfRed(winningNumber)){
         return true;
+        } else{
+            return false;
+        }
     }
 
-    private static boolean checkIfRed(int winningNumber) {
-        return true;
+    public static boolean checkIfRed(int winningNumber) {
+        int[] redNumbers = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36};
+        if (Arrays.asList(redNumbers).contains(winningNumber)) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static void bettingTypes() {

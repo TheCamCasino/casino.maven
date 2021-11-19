@@ -22,28 +22,28 @@ public class RouletteGame implements GameInterface {
     @Override
     public void run() {
         String playerInput;
-        CasinoAccountManager casinoAccountManager = new CasinoAccountManager();
+        RouletteInterface game = new RouletteInterface();
         do {
-            playerInput = getArcadeDashboardInput();
+            playerInput = RouletteBoardStartingMethod();
 
-            int winningNumber = RouletteInterface.spinWheel();
+            int winningNumber = game.spinWheel();
 
             if(playerInput.equalsIgnoreCase("help")){
-                RouletteInterface.bettingTypes();
+                game.bettingTypes();
                 continue;
             }else {
                 console.getStringInput((new StringBuilder()
                         .append("The Winning number is " + winningNumber)
                         .toString()));
                 String[] playerBets = playerInput.split(" ");
-                int balanceChange = RouletteInterface.determineWinnings(playerBets, winningNumber);
+                int balanceChange = game.determineWinnings(playerBets, winningNumber);
                 RoulettePlayer.accountBalance(balanceChange);
 
 
             }} while (!"Leave Table".equals(playerInput));
 
     }
-    private String getArcadeDashboardInput() {
+    private String RouletteBoardStartingMethod() {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Roulette Table")
                 .append("\nPlease bet on your numbers using this format, with each separated by a space:")
