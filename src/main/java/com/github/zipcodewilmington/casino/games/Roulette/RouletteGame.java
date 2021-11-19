@@ -25,7 +25,7 @@ public class RouletteGame implements GameInterface {
     public void run() {
         String playerInput;
         RouletteInterface game = new RouletteInterface();
-        boolean leaveTable = false;
+        boolean leaveTable = true;
 
         do {
             playerInput = RouletteBoardStartingMethod();
@@ -35,11 +35,13 @@ public class RouletteGame implements GameInterface {
             if(playerInput.equalsIgnoreCase("help")){
                 game.bettingTypes();
             }else if(playerInput.equalsIgnoreCase("Leave Table")) {
-                leaveTable = true;
-                break;
-            }else if(playerInput.equalsIgnoreCase("")) {
-                System.out.println("Please enter a choice");
-            }else {
+                leaveTable = false;
+                //break;
+            }
+//            else if(playerInput.equalsIgnoreCase("")) {
+//                System.out.println("Please enter a choice");
+//            }
+            else {
                     console.getStringInput((new StringBuilder()
                             .append("The Winning number is " + winningNumber)
                             .toString()));
