@@ -9,6 +9,10 @@ public class Card {
         this.rank = rank;
     }
 
+    public Rank getRank() {
+        return rank;
+    }
+
     public String toString() {
         return "[" + this.rank + "" + this.suit + "]";
     }

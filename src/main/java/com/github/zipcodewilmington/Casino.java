@@ -4,13 +4,12 @@ import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.CasinoAccountManager;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
-import com.github.zipcodewilmington.casino.games.GoldFish.GoldFishGameEngine;
+import com.github.zipcodewilmington.casino.games.GoFish.GoFishGameEngine;
+import com.github.zipcodewilmington.casino.games.GoFish.GoFishPlayer;
 import com.github.zipcodewilmington.casino.games.blackjack.BlackjackGame;
 import com.github.zipcodewilmington.casino.games.blackjack.BlackjackPlayer;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessPlayer;
-import com.github.zipcodewilmington.casino.games.slots.SlotsGame;
-import com.github.zipcodewilmington.casino.games.slots.SlotsPlayer;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
@@ -42,7 +41,7 @@ public class Casino implements Runnable {
                         gameSelectionInput = getGameSelectionInput().toUpperCase();
 
                         if (gameSelectionInput.equals("GOFISH")) {
-                            play(new GoldFishGameEngine(), new GoldFishGameEngine());
+                            play(new GoFishGameEngine(), new GoFishPlayer(casinoAccount));
                         } else if (gameSelectionInput.equals("ROULETTE")) {
                             play(new NumberGuessGame(), new NumberGuessPlayer());
                         } else if (gameSelectionInput.equals("BLACKJACK")) {
