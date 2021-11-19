@@ -13,4 +13,9 @@ class GoFishGameEngineTest {
     @Test
     void dealCards() {
     }
+
+    @Test
+    public void chooseCardChoiceTest() {
+
+    }
 }

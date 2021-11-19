@@ -32,7 +32,7 @@ private ArrayList<Card> playerHand;
    }
 
    public ArrayList<String> getRank() {
-       ArrayList<String> ranks = new ArrayList<String>();
+       ArrayList<String> ranks = new ArrayList<>();
        for (Card card : playerHand) {
            ranks.add(card.getRank().toString());
        }
@@ -51,6 +51,21 @@ private ArrayList<Card> playerHand;
         for (Card card : cardsToAdd) {
             this.playerHand.add(card);
         }
+    }
+
+    public Card getPlayerCard(int index) {
+        return playerHand.get(index);
+    }
+
+    public ArrayList<Card> removeCard(Card card, ArrayList<Card> victimHand, ArrayList<Card> destHand)
+    {
+        for (int i = 0; i < victimHand.size(); i++) {
+            if (card.equals(victimHand.get(i))) {
+                destHand.add(card);
+                victimHand.remove(card);
+            }
+        }
+        return destHand;
     }
 
     public void dealCards() {

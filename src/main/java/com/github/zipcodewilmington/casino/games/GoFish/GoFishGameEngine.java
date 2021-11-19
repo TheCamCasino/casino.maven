@@ -29,13 +29,14 @@ public class GoFishGameEngine implements GameInterface {
 
     }
 
-    public static void main(String[] args) {   //Testing purposes
-        GoFishGameEngine engine = new GoFishGameEngine();
-        engine.run();
-
-    }
+//    public static void main(String[] args) {   //Testing purposes
+//        GoFishGameEngine engine = new GoFishGameEngine();
+//        engine.run();
+//
+//    }
     @Override
     public void run() {
+        deck.shuffle();
 
         //Start user input
         String input = console.getStringInput("Are you ready to play? (enter 'yes' or 'y')");
@@ -54,8 +55,7 @@ public class GoFishGameEngine implements GameInterface {
     }
 
     public void dealCards() {
-        Deck deck = new Deck();
-        deck.shuffle();
+
         for (int i = 0; i < 7; i++) {
             opponentHand.addPlayerCards(deck.dealCard());
             playerHand.addPlayerCards(deck.dealCard());
@@ -64,8 +64,10 @@ public class GoFishGameEngine implements GameInterface {
 
     public String chooseCardChoice() {
         String input = console.getStringInput("Choose a card to request");
+
         ArrayList<String> opponentRank = opponentHand.getRank();
         ArrayList<Card> stolenCards = new ArrayList<>();
+
         if(opponentRank.contains(input)) {
             for(Card card : opponentHand.getPlayerHand()) {
                 if(card.getRank().equals(input)) {
