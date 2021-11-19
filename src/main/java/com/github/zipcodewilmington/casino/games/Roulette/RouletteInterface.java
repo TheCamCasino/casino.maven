@@ -19,8 +19,10 @@ public class RouletteInterface {
 
     public int determineWinnings(String[] playerBets, int winningNumber) {
         int balanceChange = 0;
+        int totalbet = 0;
 
         for (String playerbet : playerBets) {
+
             String[] whereBet = playerbet.split(":");
             String[] typeBet = whereBet[0].split(",");
             int bet = Integer.parseInt((whereBet[1]));
@@ -28,6 +30,7 @@ public class RouletteInterface {
             int spot2 = 0;
             int spot3 = 0;
             int spot4 = 0;
+            totalbet = totalbet + bet;
 
             try {
                 spot1 = Integer.parseInt(typeBet[1]);
@@ -143,7 +146,12 @@ public class RouletteInterface {
                     }
                     break;
             }
-            System.out.println(balanceChange);
+
+        }
+        if(balanceChange > 0) {
+            System.out.println("you have won " + balanceChange + "");
+        }else if(balanceChange <= 0){
+            System.out.println("you have lost " + balanceChange + "");
         }
         return balanceChange;
     }
@@ -214,29 +222,32 @@ public class RouletteInterface {
 
     public static boolean checkIfColumn3(int winningNumber) {
         int[] Column3 = {3,6,9,12,15,18,21,24,27,30,33,36};
-        if (Arrays.asList(Column3).contains(winningNumber)){
-            return true;
-        }else {
-            return true;
+        for (int i = 0; i < Column3.length; i++) {
+            if (Column3[i] == winningNumber){
+                return true;
+            }
         }
+        return false;
     }
 
     public static boolean checkIfColumn2(int winningNumber) {
         int[] Column2 = {2,5,8,11,14,17,20,23,26,29,32,35};
-        if (Arrays.asList(Column2).contains(winningNumber)){
-            return true;
-        }else {
-            return true;
+        for (int i = 0; i < Column2.length; i++) {
+            if (Column2[i] == winningNumber){
+                return true;
+            }
         }
+        return false;
     }
 
     public static boolean checkIfColumn1(int winningNumber) {
         int[] Column1 = {1,4,7,10,13,16,19,22,25,28,31,34};
-        if (Arrays.asList(Column1).contains(winningNumber)){
-            return true;
-        }else {
-            return true;
+        for (int i = 0; i < Column1.length; i++) {
+            if (Column1[i] == winningNumber){
+                return true;
+            }
         }
+        return false;
     }
 
     public static boolean checkIfLow(int winningNumber) {
@@ -256,10 +267,10 @@ public class RouletteInterface {
     }
 
     public static boolean checkIfOdd(int winningNumber) {
-        if(!checkIfEven(winningNumber)) {
-            return  true;
-        }else {
+        if((winningNumber % 2) != 0) {
             return true;
+        }else{
+            return false;
         }
     }
 
@@ -281,11 +292,12 @@ public class RouletteInterface {
 
     public static boolean checkIfRed(int winningNumber) {
         int[] redNumbers = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36};
-        if (Arrays.asList(redNumbers).contains(winningNumber)) {
-            return true;
-        }else{
-            return false;
+        for (int i = 0; i < redNumbers.length; i++) {
+            if (redNumbers[i] == winningNumber){
+                return true;
+            }
         }
+        return false;
     }
 
     public static void bettingTypes() {
