@@ -28,10 +28,6 @@ public class Hand {
         this.playerHand.removeAll(this.playerHand);
     }
 
-    public ArrayList<Card> getPlayerHand() {
-        return playerHand;
-    }
-
     public Integer getValue() {
         Integer sum = 0;
         for(Card card : playerHand) {
@@ -45,7 +41,6 @@ public class Hand {
                 }
             }
         }
-
         return sum;
     }
 
@@ -55,9 +50,5 @@ public class Hand {
 
     public Card getPlayerCard(int index) {
         return playerHand.get(index);
-    }
-
-    public void setPlayerHand(ArrayList<Card> playerHand) {
-        this.playerHand = playerHand;
     }
 }
