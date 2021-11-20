@@ -2,9 +2,7 @@ package com.github.zipcodewilmington.casino.games.GoFish;
 
 import com.github.zipcodewilmington.casino.games.deck.Card;
 import com.github.zipcodewilmington.casino.games.deck.Deck;
-
 import java.util.ArrayList;
-
 
 public class GoFishHand {
 
@@ -36,13 +34,13 @@ private ArrayList<Card> opponentHand;
        return ranks;
    }
 
-    public ArrayList<String> getOpponentRank() {
-        ArrayList<String> ranks = new ArrayList<String>();
-        for (Card card : opponentHand) {
-            ranks.add(card.getRank().toString());
-        }
-        return ranks;
-    }
+//    public ArrayList<String> getOpponentRank() {
+//        ArrayList<String> ranks = new ArrayList<String>();
+//        for (Card card : opponentHand) {
+//            ranks.add(card.getRank().toString());
+//        }
+//        return ranks;
+//    }
 
     public ArrayList<Card> getPlayerHand() {
         return playerHand;

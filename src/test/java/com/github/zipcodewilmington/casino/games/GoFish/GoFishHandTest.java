@@ -1,22 +1,11 @@
 package com.github.zipcodewilmington.casino.games.GoFish;
 
-import com.github.zipcodewilmington.casino.games.deck.Card;
-import com.github.zipcodewilmington.casino.games.deck.Deck;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 
 
 class GoFishHandTest {
-
-    @Test
-    public void GoFishHand() {
-        //Given
-        GoFishHand goFishHand = new GoFishHand();
-        goFishHand = new GoFishHand();
-    }
-
 
     @Test
     void showPlayerHand() {
@@ -40,23 +29,36 @@ class GoFishHandTest {
         GoFishHand goFishHand = new GoFishHand();
 
         //When
-        System.out.println(goFishHand.getPlayerHand().toString());
     }
-
     @Test
-    void addPlayerCards() {
 
+    void addCardsTest() {
+        // Given
+
+        // When
+
+
+        // Then
 
     }
-
 
     @Test
     void clearHand() {
+        // Given
+
+        // When
+
+        // Then
+
     }
 
     @Test
     void getRank() {
+        // Given
 
+        // When
+
+        // Then
 
     }
 }

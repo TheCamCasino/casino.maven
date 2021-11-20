@@ -1,13 +1,14 @@
 package com.github.zipcodewilmington.casino.games.GoFish;
 
+import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.games.deck.Card;
+import com.github.zipcodewilmington.casino.games.deck.Deck;
 import com.github.zipcodewilmington.casino.games.deck.Rank;
 import com.github.zipcodewilmington.casino.games.deck.Suit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.net.Authenticator;
 
 public class GoFishGameEngineTest {
 
@@ -42,20 +43,23 @@ public class GoFishGameEngineTest {
 
 
     @Test
-    public void run() {
-
-
-    }
-
-
-    @Test
     public void isConstructorNull() {
 
     }
 
     @Test
+    public void dealShuffleTest() {
+     Deck deck = new Deck();
+
+    }
+    @Test
     public void dealCardsTest() {
 
+
+        deck.shuffle();
+        for (int i = 0; i < 5; i++) {
+            opponentHand.addPlayerCards(deck.dealCard());
+            playerHand.addPlayerCards(deck.dealCard());
     }
 
     @Test
@@ -66,20 +70,6 @@ public class GoFishGameEngineTest {
 
     @Test
     public void removeRanksTest() {
-        /*
-        if equals input, expect that the hand will not have those cards anymore
-        need: opponent hand
-        opponent?
-        assign them a hand
-        string input that matches in their hand
-
-        hand expected: expect that the hand wont have that those cards
-
-        when we run this method,
-        save that into returned hand
-
-        assert that what we expect is what we got
-         */
         // given
         Card twoOfHearts = new Card(Suit.HEARTS, Rank.TWO);
         Card threeOfHearts = new Card(Suit.HEARTS, Rank.THREE);
@@ -98,17 +88,21 @@ public class GoFishGameEngineTest {
 
     @Test
     public void addTest() {
-    // given
+        // given
         Card twoOfHearts = new Card(Suit.HEARTS, Rank.TWO);
         Card threeOfHearts = new Card(Suit.HEARTS, Rank.THREE);
         testHand.addPlayerCards(twoOfHearts);
         testHand.addPlayerCards(threeOfHearts);
         // when
 
-        // then
-//         Assert.assertEquals(expectedHand, returnedHand);
-    }
 
+        // then
+       // Assert.assertEquals(expectedHand, returnedHand);
+    }
+    @Test
+    public void showPlayersHandTest() {  //Showing both player's hand
+        //
+    }
     @Test
     public void remove() {
     }
@@ -116,6 +110,5 @@ public class GoFishGameEngineTest {
     @Test
     public void fish() {
     }
-
 
 }
