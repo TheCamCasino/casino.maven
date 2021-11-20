@@ -1,5 +1,8 @@
 package com.github.zipcodewilmington.casino.games.GoFish;
 
+import com.github.zipcodewilmington.casino.games.deck.Card;
+import com.github.zipcodewilmington.casino.games.deck.Rank;
+import com.github.zipcodewilmington.casino.games.deck.Suit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,10 +12,12 @@ import java.net.Authenticator;
 public class GoFishGameEngineTest {
 
     private GoFishGameEngine goFishGameEngine;
+    private GoFishHand testHand;
 
     @Before
     public void setup() {
         goFishGameEngine = new GoFishGameEngine();
+        testHand = new GoFishHand();
     }
 
     @Test
@@ -68,20 +73,40 @@ public class GoFishGameEngineTest {
         assign them a hand
         string input that matches in their hand
 
-        expected: expect that the hand wont have that
-    
+        hand expected: expect that the hand wont have that those cards
+
+        when we run this method,
+        save that into returned hand
+
+        assert that what we expect is what we got
          */
         // given
+        Card twoOfHearts = new Card(Suit.HEARTS, Rank.TWO);
+        Card threeOfHearts = new Card(Suit.HEARTS, Rank.THREE);
+        testHand.addPlayerCards(twoOfHearts);
+        testHand.addPlayerCards(threeOfHearts);
 
+        String givenConsolePlayerInput = "3";
+
+        String expectedHandString = "[2♥]";
         // when
-
-        // then
-
+        goFishGameEngine.removeRanks(testHand, givenConsolePlayerInput);
+        String returnedHandString = testHand.showPlayerHand();
+        //  then
+         Assert.assertEquals(expectedHandString, returnedHandString);
     }
 
     @Test
     public void addTest() {
+    // given
+        Card twoOfHearts = new Card(Suit.HEARTS, Rank.TWO);
+        Card threeOfHearts = new Card(Suit.HEARTS, Rank.THREE);
+        testHand.addPlayerCards(twoOfHearts);
+        testHand.addPlayerCards(threeOfHearts);
+        // when
 
+        // then
+//         Assert.assertEquals(expectedHand, returnedHand);
     }
 
     @Test
