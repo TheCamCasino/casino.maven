@@ -10,11 +10,11 @@ public class Hand {
         this.playerHand = new ArrayList<>();
     }
 
-    public void addCardToHand(Card card) {
+    public void addCard(Card card) {
         this.playerHand.add(card);
     }
 
-    public String showPlayerHand() {
+    public String showHand() {
         String showPlayerCards = "";
 
         for (Card card : playerHand) {

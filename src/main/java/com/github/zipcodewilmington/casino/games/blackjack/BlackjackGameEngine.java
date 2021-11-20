@@ -8,7 +8,6 @@ import com.github.zipcodewilmington.utils.IOConsole;
 public class BlackjackGameEngine implements GameInterface {
     private final IOConsole console = new IOConsole(AnsiColor.YELLOW);
     private PlayerInterface player;
-    private BlackjackGame bj = new BlackjackGame();
 
     @Override
     public void add(PlayerInterface player) {

@@ -1,16 +1,15 @@
-package com.github.zipcodewilmington.casino.games.GoFish;
+package com.github.zipcodewilmington;
 
+import com.github.zipcodewilmington.casino.games.GoFish.GoFishHand;
 import com.github.zipcodewilmington.casino.games.deck.Card;
 import com.github.zipcodewilmington.casino.games.deck.Rank;
 import com.github.zipcodewilmington.casino.games.deck.Suit;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GoFishHandTest {
 

@@ -53,10 +53,10 @@ public class DeckTest {
         deck.shuffle();
 
         //When
-        playerHand.addCardToHand(deck.dealCard());
-        playerHand.addCardToHand(deck.dealCard());
-        playerHand.addCardToHand(deck.dealCard());
-        playerHand.addCardToHand(deck.dealCard());
+        playerHand.addCard(deck.dealCard());
+        playerHand.addCard(deck.dealCard());
+        playerHand.addCard(deck.dealCard());
+        playerHand.addCard(deck.dealCard());
 
         Integer actual = playerHand.getHandSize();
 

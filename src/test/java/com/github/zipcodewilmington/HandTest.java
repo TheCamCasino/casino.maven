@@ -16,7 +16,7 @@ public class HandTest {
         Card expected = new Card(Suit.CLUBS, Rank.JACK);
 
         //When
-        playerHand.addCardToHand(expected);
+        playerHand.addCard(expected);
         Card actual = playerHand.getPlayerCard(0);
 
         //Then
@@ -32,9 +32,9 @@ public class HandTest {
         Integer expected = 3;
 
         //When
-        playerHand.addCardToHand(queenOfHearts);
-        playerHand.addCardToHand(jackOfClubs);
-        playerHand.addCardToHand(sevenOfDiamonds);
+        playerHand.addCard(queenOfHearts);
+        playerHand.addCard(jackOfClubs);
+        playerHand.addCard(sevenOfDiamonds);
 
         Integer actual = playerHand.getHandSize();
 
@@ -49,7 +49,7 @@ public class HandTest {
         Integer expected = 0;
 
         //When
-        playerHand.addCardToHand(card);
+        playerHand.addCard(card);
         playerHand.clearHand();
 
         Integer actual = playerHand.getHandSize();
@@ -64,14 +64,67 @@ public class HandTest {
         Card queenOfHearts = new Card(Suit.HEARTS, Rank.QUEEN);
         Card jackOfClubs = new Card(Suit.CLUBS, Rank.JACK);
         Card sevenOfDiamonds = new Card (Suit.DIAMONDS, Rank.SEVEN);
-        String expected = queenOfHearts.toString() + jackOfClubs.toString() + sevenOfDiamonds.toString();
+        String expected = "" + queenOfHearts + jackOfClubs + sevenOfDiamonds;
 
         //When
-        playerHand.addCardToHand(queenOfHearts);
-        playerHand.addCardToHand(jackOfClubs);
-        playerHand.addCardToHand(sevenOfDiamonds);
+        playerHand.addCard(queenOfHearts);
+        playerHand.addCard(jackOfClubs);
+        playerHand.addCard(sevenOfDiamonds);
 
-        String actual = playerHand.showPlayerHand();
+        String actual = playerHand.showHand();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void handValueTest() {
+        //Given
+        Hand hand = new Hand();
+        Card sixOfHearts = new Card(Suit.HEARTS, Rank.SIX);
+        Card queenOfSpades = new Card(Suit.SPADES, Rank.QUEEN);
+        Integer expected = 16;
+
+        //When
+        hand.addCard(sixOfHearts);
+        hand.addCard(queenOfSpades);
+        Integer actual = hand.getValue();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void handValueWithAceOverTwentyOneTest() {
+        //Given
+        Hand hand = new Hand();
+        Card eightOfHearts = new Card(Suit.HEARTS, Rank.EIGHT);
+        Card queenOfSpades = new Card(Suit.SPADES, Rank.QUEEN);
+        Card aceOfSpades = new Card(Suit.SPADES, Rank.ACE);
+        Integer expected = 19;
+
+        //When
+        hand.addCard(eightOfHearts);
+        hand.addCard(queenOfSpades);
+        hand.addCard(aceOfSpades);
+        Integer actual = hand.getValue();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void handValueOneAceTest() {
+        //Given
+        Hand hand = new Hand();
+        Card twoOfDiamonds = new Card(Suit.DIAMONDS, Rank.TWO);
+        Card aceOfSpades = new Card(Suit.SPADES, Rank.ACE);
+        Integer expected = 13;
+
+        //When
+        hand.addCard(twoOfDiamonds);
+        hand.addCard(aceOfSpades);
+        Integer actual = hand.getValue();
 
         //Then
         Assert.assertEquals(expected, actual);

@@ -1,6 +1,6 @@
-package com.github.zipcodewilmington.casino.games.GoFish;
+package com.github.zipcodewilmington;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
