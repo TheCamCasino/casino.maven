@@ -42,4 +42,5 @@ public enum Rank {
     public String toString() {
         return this.rankSymbol;
     }
+
 }

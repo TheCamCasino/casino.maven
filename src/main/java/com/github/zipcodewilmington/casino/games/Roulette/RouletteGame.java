@@ -26,13 +26,16 @@ public class RouletteGame implements GameInterface {
     @Override
     public void run() {
 
+
         balance = player.getArcadeAccount().getUserBalance();
+
 
         do {
             playerInput = RouletteBoardStartingMethod();
             int winningNumber = RG.spinWheel();
 
             if(playerInput.equalsIgnoreCase("help")){
+
                 RG.bettingTypes();
             }else if(playerInput.equalsIgnoreCase("")) {
                 System.out.println("Please enter a valid choice");
