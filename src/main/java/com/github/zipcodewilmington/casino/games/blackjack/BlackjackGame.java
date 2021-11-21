@@ -2,8 +2,11 @@ package com.github.zipcodewilmington.casino.games.blackjack;
 
 import com.github.zipcodewilmington.casino.games.deck.Deck;
 import com.github.zipcodewilmington.casino.games.deck.Hand;
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
 
 public class BlackjackGame {
+    private IOConsole handColor = new IOConsole(AnsiColor.YELLOW);
 
     private Deck deck;
     private Hand playerHand;
@@ -104,29 +107,32 @@ public class BlackjackGame {
     }
 
     public void displayHands() {
-        System.out.println(new StringBuilder()
-                .append("Dealer's Cards")
-                .append("\n" + dealerHand.showHand())
+        handColor.println(new StringBuilder()
+                .append("\nDealer's Cards")
+                .append("\n" + dealerHand.showHand() + "\n")
                 .append("\nPlayer's Cards")
                 .append("\n" + playerHand.showHand())
-                .append("\nPlayer's hand value: " + playerHand.getValue()));
+                .append("\nPlayer's hand value: " + playerHand.getValue())
+                .toString());
     }
 
     public void displayHandsOneHidden() {
-        System.out.println(new StringBuilder()
-                .append("Dealer's Cards")
+        handColor.println(new StringBuilder()
+                .append("\nDealer's Cards")
                 .append("\n" + dealerHand.getPlayerCard(0) + "[??]\n")
                 .append("\nPlayer's Cards")
                 .append("\n" + playerHand.showHand())
-                .append("\nPlayer's hand value: " + playerHand.getValue()));
+                .append("\nPlayer's hand value: " + playerHand.getValue())
+                .toString());
     }
 
     public void displayDoubleDown() {
-        System.out.println(new StringBuilder()
-                .append("\u001BDealer's Cards")
+        handColor.println(new StringBuilder()
+                .append("\nDealer's Cards")
                 .append("\n" + dealerHand.showHand())
                 .append("\nPlayer's Cards")
                 .append("\n" + playerHand.getPlayerCard(0)
-                        + playerHand.getPlayerCard(1) + "[??]"));
+                        + playerHand.getPlayerCard(1) + "[??]")
+                .toString());
     }
 }

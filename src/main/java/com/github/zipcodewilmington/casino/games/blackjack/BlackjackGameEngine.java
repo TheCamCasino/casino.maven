@@ -3,12 +3,14 @@ package com.github.zipcodewilmington.casino.games.blackjack;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.CasinoTextArt;
 import com.github.zipcodewilmington.utils.IOConsole;
 
 public class BlackjackGameEngine implements GameInterface {
-    private final IOConsole console = new IOConsole(AnsiColor.GREEN);
-    private final IOConsole yellowConsole = new IOConsole(AnsiColor.YELLOW);
+    private final IOConsole console = new IOConsole(AnsiColor.WHITE);
+    private final IOConsole cyanConsole = new IOConsole(AnsiColor.CYAN);
     private final IOConsole redConsole = new IOConsole(AnsiColor.RED);
+    private CasinoTextArt welcomeArt = new CasinoTextArt();
     private PlayerInterface player;
     private Integer playerBet;
     private Integer balance;
@@ -30,7 +32,7 @@ public class BlackjackGameEngine implements GameInterface {
 
     @Override
     public void run() {
-        welcomeToBlackjack();
+        welcomeArt.welcomeToBlackjackArt();
 
         //user selects if they want to play or leave
         while (input != "exit") {
@@ -47,17 +49,6 @@ public class BlackjackGameEngine implements GameInterface {
             }
         }
     }
-
-    private void welcomeToBlackjack() {
-        yellowConsole.println("┬ ┬┌─┐┬  ┌─┐┌─┐┌┬┐┌─┐  ┌┬┐┌─┐\n" +
-                "│││├┤ │  │  │ ││││├┤    │ │ │\n" +
-                "└┴┘└─┘┴─┘└─┘└─┘┴ ┴└─┘   ┴ └─┘\n" +
-                "╔╗ ╦  ╔═╗╔═╗╦╔═ ╦╔═╗╔═╗╦╔═  ┬\n" +
-                "╠╩╗║  ╠═╣║  ╠╩╗ ║╠═╣║  ╠╩╗  │\n" +
-                "╚═╝╩═╝╩ ╩╚═╝╩ ╩╚╝╩ ╩╚═╝╩ ╩  o");
-    }
-
-
 
     public void bjStart() {
         balance = player.getArcadeAccount().getUserBalance();
@@ -82,7 +73,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance - playerBet);
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    redConsole.println("Busted! You've lost this round." +
+                    redConsole.println("\nBusted! You've lost this round." +
                             "\nCurrent balance is: " + balance);
                     break;
                 }
@@ -104,7 +95,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance + (playerBet*2));
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    yellowConsole.println("You got Blackjack! Your winnings are doubled." +
+                    cyanConsole.println("\nYou got Blackjack! Your winnings are doubled." +
                             "\nCurrent balance is: " + balance);
 
                 }
@@ -113,7 +104,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance + (playerBet*2));
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    yellowConsole.println("Dealer busts! You got Blackjack! Your winnings are doubled." +
+                    cyanConsole.println("\nDealer busts! You got Blackjack! Your winnings are doubled." +
                             "\nCurrent balance is: " + balance);
 
                 }
@@ -122,7 +113,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance + playerBet);
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    yellowConsole.println("You win this round." +
+                    cyanConsole.println("\nYou win this round." +
                             "\nCurrent balance is: " + balance);
 
                 }
@@ -131,7 +122,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance + playerBet);
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    yellowConsole.println("Dealer busts! You win this round." +
+                    cyanConsole.println("\nDealer busts! You win this round." +
                             "\nCurrent balance is: " + balance);
 
                 } else if (winner.equals("dealer win")) {
@@ -144,7 +135,7 @@ public class BlackjackGameEngine implements GameInterface {
 
                 } else {
                     bj.displayHands();
-                    System.out.println("This round is a tie.");
+                    System.out.println("\nThis round is a tie.");
                 }
             }
 
@@ -157,7 +148,7 @@ public class BlackjackGameEngine implements GameInterface {
 
     private String getBJDashboardInput() {
         return console.getStringInput(new StringBuilder()
-                .append("Welcome to Blackjack, " + player.getArcadeAccount().getUserName() + "!")
+                .append("\nWelcome to Blackjack, " + player.getArcadeAccount().getUserName() + "!")
                 .append("\nWhat would you like to do?")
                 .append("\n[ play ] [ rules ] [ exit ]")
                 .toString());
@@ -166,7 +157,7 @@ public class BlackjackGameEngine implements GameInterface {
     private String getContinueInput() {
         while(true) {
             String output = console.getStringInput(new StringBuilder()
-                    .append("Would you like to play a new round?")
+                    .append("\nWould you like to play a new round?")
                     .append("\n[ yes ] [ no ]")
                     .toString());
             if (output.equalsIgnoreCase("yes")
@@ -185,9 +176,9 @@ public class BlackjackGameEngine implements GameInterface {
                     .append("\nYour current balance is: " + balance)
                     .toString());
             if (output < 1) {
-                System.out.println("You must bet at least $1.");
+                System.out.println("\nYou must bet at least $1.");
             } else if (output > balance) {
-                System.out.println("You cannot bet more than you have." +
+                System.out.println("\nYou cannot bet more than you have." +
                         "\nCurrent balance: " + balance);
             } else {
                 return output;
@@ -210,13 +201,13 @@ public class BlackjackGameEngine implements GameInterface {
     }
 
     private void rules() {
-        System.out.println(new StringBuilder()
+        cyanConsole.println(new StringBuilder()
                 .append("\nObjective: Try to get as close to 21 as possible without going over.")
                 .append("\nDuring your turn, you can choose to either hit, stand or double-down.")
                 .append("\nIf you go over 21, you bust! If your first two cards total to 21, that is considered a Blackjack.")
                 .append("\nIf you win with Blackjack, you'll get double your bet amount.")
                 .append("\nAnd that's it! Good luck!")
-                .append("\n- Credits to Bicycle Cards\n")
+                .append("\n- Credits to Bicycle Cards")
                 .toString());
     }
 

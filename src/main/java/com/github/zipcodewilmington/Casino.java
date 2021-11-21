@@ -11,6 +11,7 @@ import com.github.zipcodewilmington.casino.games.blackjack.BlackjackPlayer;
 import com.github.zipcodewilmington.casino.games.Roulette.RoulettePlayer;
 import com.github.zipcodewilmington.casino.games.Roulette.RouletteGame;
 import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.CasinoTextArt;
 import com.github.zipcodewilmington.utils.IOConsole;
 
 /**
@@ -18,9 +19,13 @@ import com.github.zipcodewilmington.utils.IOConsole;
  */
 public class Casino implements Runnable {
     private final IOConsole console = new IOConsole(AnsiColor.BLUE);
+    private final IOConsole redConsole = new IOConsole(AnsiColor.RED);
+    private final IOConsole cyanConsole = new IOConsole(AnsiColor.GREEN);
+    private CasinoTextArt textArt = new CasinoTextArt();
 
     @Override
     public void run() {
+        textArt.welcomeToTheCamCasinoArt();
         String arcadeDashBoardInput;
         CasinoAccountManager casinoAccountManager = new CasinoAccountManager();
         do {
@@ -55,7 +60,7 @@ public class Casino implements Runnable {
                                 logout = true;
                                 break;
                             default:
-                                System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
+                                redConsole.println(gameSelectionInput + " is an invalid game selection. Please try again.");
                                 break;
                         }
                         if (logout) {
@@ -64,13 +69,14 @@ public class Casino implements Runnable {
                     }
 
                 } else {
-                    System.out.println("Invalid username or password. Please try again.");
+                    redConsole.println("Invalid username or password. Please try again.");
                 }
 
-            } else if ("create-account".equals(arcadeDashBoardInput)) {
-                console.println("Welcome to the account-creation screen.");
-                String accountName = console.getStringInput("Enter your account name:");
-                String accountPassword = console.getStringInput("Enter your account password:");
+            } else if ("register".equals(arcadeDashBoardInput)) {
+                cyanConsole.println("Welcome to the account-creation screen." +
+                        "\nAll new users get a $500 starting balance. ☺");
+                String accountName = cyanConsole.getStringInput("Enter your account name:");
+                String accountPassword = cyanConsole.getStringInput("Enter your account password:");
 
                 CasinoAccount newAccount = casinoAccountManager.createAccount(accountName, accountPassword);
                 casinoAccountManager.registerAccount(newAccount);
@@ -83,7 +89,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Arcade Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ create-account ], [ login ]")
+                .append("\n\t[ register ], [ login ]")
                 .toString());
     }
 

@@ -14,7 +14,7 @@ public class CasinoAccountManager {
     private Map<String, CasinoAccount> arcadeAccount = new HashMap<>();
 
     public CasinoAccountManager() {
-        arcadeAccount.put("Bob", new CasinoAccount("Bob", "Billy", 100));
+        arcadeAccount.put("Bob", new CasinoAccount("Bob", "Billy", 500));
     }
 
 //    /**
