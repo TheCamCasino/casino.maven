@@ -438,4 +438,29 @@ public class RouletteInterfaceTest {
         Assert.assertEquals(actual,expected);
 
     }
+
+    @Test
+    public void totalBetAmountTest(){
+        //given
+        RouletteInterface test = new RouletteInterface();
+        String playerBet = "even:20 red:30 corner,1,2,5,6:50";
+        //when
+        int actual = test.totalBetAmount(playerBet);
+        int expected = 100;
+        //then
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void determineWinningsTest(){
+        //given
+        RouletteInterface test = new RouletteInterface();
+        String testInput = "even:20 corner,1,2,5,6:30 black:50";
+        int testWin = 23;
+        //when
+        int actualChange = test.determineWinnings(testInput,testWin);
+        int expectedChange = -100;
+        //then
+        Assert.assertEquals(expectedChange,actualChange);
+    }
 }
