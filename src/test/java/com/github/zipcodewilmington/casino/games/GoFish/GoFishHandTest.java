@@ -37,23 +37,23 @@ public class GoFishHandTest {
         testHand.addPlayerCards(twoOfClubs);
     }
 
-    @Test
-    public String showPlayerHand() {
-
-        //Given
-        GoFishHand goFishHand = new GoFishHand();
-        goFishHand.dealCards();
-
-        //When
-
-        String actual = testHand.showPlayerHand();
-
-        //Expected
-        String expected = "[2♥][3♥][2♦][3♦][2♠][3♠][2♣]";
-
-        Assert.assertEquals(actual, expected);
-        return actual;
-    }
+//    @Test
+//    public String showPlayerHand() {
+//
+//        //Given
+//        GoFishHand goFishHand = new GoFishHand();
+//        goFishHand.dealCards();
+//
+//        //When
+//
+//        String actual = testHand.showPlayerHand();
+//
+//        //Expected
+//        String expected = "[2♥][3♥][2♦][3♦][2♠][3♠][2♣]";
+//
+//        Assert.assertEquals(actual, expected);
+//        return actual;
+//    }
 
     @Test
     public void isConstructorNull() {
