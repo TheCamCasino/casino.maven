@@ -1,138 +1,132 @@
 package com.github.zipcodewilmington.casino.games.blackjack;
 
-import com.github.zipcodewilmington.casino.games.deck.Card;
 import com.github.zipcodewilmington.casino.games.deck.Deck;
 import com.github.zipcodewilmington.casino.games.deck.Hand;
-import com.github.zipcodewilmington.casino.games.deck.Rank;
-
-import java.util.ArrayList;
 
 public class BlackjackGame {
-    Deck deck;
-    Hand playerHand;
-    Hand dealerHand;
+
+    private Deck deck;
+    private Hand playerHand;
+    private Hand dealerHand;
 
     public BlackjackGame() {
+        this.deck = new Deck();
         this.playerHand = new Hand();
         this.dealerHand = new Hand();
-        this.deck = new Deck();
         deck.shuffle();
     }
 
-    public String showPlayerAndDealerHands() {
-        return "Dealer's cards:\n" +
-                dealerHand.getPlayerCard(0) + "[??]\n" +
-                "Player's cards:\n" +
-                playerHand.showPlayerHand() + "\n" +
-                "Current hand value: " + playerHandValue() + "\n";
+    public BlackjackGame(Deck deck, Hand playerHand, Hand dealerHand) {
+        this.deck = deck;
+        this.playerHand = playerHand;
+        this.dealerHand = dealerHand;
     }
 
-    public String showPlayerAndFullDealerHands() {
-        return "Dealer's cards:\n" +
-                dealerHand.showPlayerHand() + "\n" +
-                "Player's cards:\n" +
-                playerHand.showPlayerHand() + "\n" +
-                "Current hand value: " + playerHandValue() + "\n";
+    public Deck getDeck() {
+        return this.deck;
     }
 
-    public void startingCards() {
-        //deal 2 cards to dealer
-        dealerHand.addCardToHand(deck.dealCard());
-        dealerHand.addCardToHand(deck.dealCard());
-
-        //deal 2 cards to player
-        playerHand.addCardToHand(deck.dealCard());
-        playerHand.addCardToHand(deck.dealCard());
+    public Hand getPlayerHand() {
+        return this.playerHand;
     }
 
-    //hit
-    public void hit() {
-        playerHand.addCardToHand(deck.dealCard());
+    public Hand getDealerHand() {
+        return this.dealerHand;
     }
 
-    //dealer and player hand values
-    public Integer playerHandValue() {
-        return playerHand.getValue();
+    public void setDealerHand(Hand hand) {
+        this.dealerHand = hand;
     }
 
-    public Integer dealerHandValue() {
-        return dealerHand.getValue();
+    public void hit(Hand hand) {
+        hand.addCard(deck.dealCard());
     }
 
-    public Integer getPlayerHandSize() {
-        return playerHand.getHandSize();
-    }
-
-    public Integer getDealerHandSize() {
-        return dealerHand.getHandSize();
-    }
-
-    public Boolean dealerPlay() {
-        if (dealerHandValue() < 17) {
-            dealerHand.addCardToHand(deck.dealCard());
-
-            if (dealerBust()) {
-                return false;
-            } else if (dealerBust()) {
-                return false;
-            }
+    public Boolean bust(Hand hand) {
+        if (hand.getValue() > 21) {
             return true;
         }
-        return true;
+        return false;
     }
 
-    public Boolean playerBlackjack() {
-        Rank firstCard = playerHand.getPlayerCard(0).getRank();
-        Rank secondCard = playerHand.getPlayerCard(1).getRank();
-        Rank jack = Rank.JACK;
-        Rank queen = Rank.QUEEN;
-        Rank king = Rank.KING;
-        Rank ace = Rank.ACE;
+    public void initialHand() {
+        dealerHand.addCard(deck.dealCard());
+        playerHand.addCard(deck.dealCard());
+        dealerHand.addCard(deck.dealCard());
+        playerHand.addCard(deck.dealCard());
+    }
 
-        Boolean isTwentyOne = playerHand.getValue().equals(21);
-
-        if (isTwentyOne) {
-            if (firstCard.equals(jack) && secondCard.equals(ace)
-                    || firstCard.equals(ace) && secondCard.equals(jack)) {
-                return true;
-            } else if (firstCard.equals(queen) && secondCard.equals(ace)
-                    || firstCard.equals(ace) && secondCard.equals(queen)) {
-                return true;
-            } else if (firstCard.equals(king) && secondCard.equals(ace)
-                    || firstCard.equals(ace) && secondCard.equals(king)) {
-                return true;
+    public void dealerPlay() {
+        while (true) {
+            if (bust(dealerHand)) {
+                break;
+            } else if (dealerHand.getValue() >= 17 && dealerHand.getValue() < 22) {
+                break;
+            } else if (dealerHand.getValue() < 17) {
+                hit(dealerHand);
             }
         }
-        return false;
     }
 
-    public Boolean playerBust() {
-        if (playerHand.getValue() > 21) {
-            return true;
-        }
-        return false;
-    }
+    public String checkWinner(Hand playerHand, Hand dealerHand) {
+        Integer playerHandValue = playerHand.getValue();
+        Integer dealerHandValue = dealerHand.getValue();
+        Boolean dealerIsBust = bust(dealerHand);
+        Boolean isBlackjack = checkIfBlackjack(playerHand).equals("blackjack");
 
-    public Boolean dealerBust() {
-        if (dealerHand.getValue() > 21) {
-            return true;
-        }
-        return false;
+            if (isBlackjack) {
+                if (playerHandValue > dealerHandValue) {
+                    return "bj win";
+                } else if (playerHandValue < dealerHandValue && dealerIsBust) {
+                    return "bj win dealer bust";
+                }
+            } else if (playerHandValue > dealerHandValue) {
+                return "std win";
+            } else if (playerHandValue < dealerHandValue && dealerIsBust) {
+                return "win dealer bust";
+            } else if (playerHandValue < dealerHandValue) {
+                return "dealer win";
+            }
+            return "tie";
     }
 
     public void newRound() {
-        playerHand.clearHand();
         dealerHand.clearHand();
+        playerHand.clearHand();
     }
 
-    public Integer setDealerHand(ArrayList<Card> cards) {
-        dealerHand.setPlayerHand(cards);
-        return playerHandValue();
+    public String checkIfBlackjack(Hand hand) {
+        if (hand.getHandSize().equals(2) && hand.containsAce() && hand.containsTenCard()) {
+            return "blackjack";
+        } else {
+            return "not blackjack";
+        }
     }
 
-    public Integer setPlayerHand(ArrayList<Card> cards) {
-        playerHand.setPlayerHand(cards);
-        return playerHandValue();
+    public void displayHands() {
+        System.out.println(new StringBuilder()
+                .append("Dealer's Cards")
+                .append("\n" + dealerHand.showHand())
+                .append("\nPlayer's Cards")
+                .append("\n" + playerHand.showHand())
+                .append("\nPlayer's hand value: " + playerHand.getValue()));
     }
 
+    public void displayHandsOneHidden() {
+        System.out.println(new StringBuilder()
+                .append("Dealer's Cards")
+                .append("\n" + dealerHand.getPlayerCard(0) + "[??]\n")
+                .append("\nPlayer's Cards")
+                .append("\n" + playerHand.showHand())
+                .append("\nPlayer's hand value: " + playerHand.getValue()));
+    }
+
+    public void displayDoubleDown() {
+        System.out.println(new StringBuilder()
+                .append("\u001BDealer's Cards")
+                .append("\n" + dealerHand.showHand())
+                .append("\nPlayer's Cards")
+                .append("\n" + playerHand.getPlayerCard(0)
+                        + playerHand.getPlayerCard(1) + "[??]"));
+    }
 }

@@ -10,11 +10,11 @@ public class Hand {
         this.playerHand = new ArrayList<>();
     }
 
-    public void addCardToHand(Card card) {
+    public void addCard(Card card) {
         this.playerHand.add(card);
     }
 
-    public String showPlayerHand() {
+    public String showHand() {
         String showPlayerCards = "";
 
         for (Card card : playerHand) {
@@ -26,10 +26,6 @@ public class Hand {
 
     public void clearHand() {
         this.playerHand.removeAll(this.playerHand);
-    }
-
-    public ArrayList<Card> getPlayerHand() {
-        return playerHand;
     }
 
     public Integer getValue() {
@@ -45,7 +41,6 @@ public class Hand {
                 }
             }
         }
-
         return sum;
     }
 
@@ -57,7 +52,21 @@ public class Hand {
         return playerHand.get(index);
     }
 
-    public void setPlayerHand(ArrayList<Card> playerHand) {
-        this.playerHand = playerHand;
+    public Boolean containsTenCard() {
+        for (Card card : playerHand) {
+            if (card.getRank().getSecondaryValue().equals(10)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean containsAce() {
+        for (Card card : playerHand) {
+            if (card.getRank().equals(Rank.ACE)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -37,26 +37,34 @@ public class Casino implements Runnable {
 
                     String gameSelectionInput;
 
-                    do {
+                    while (true) {
                         gameSelectionInput = getGameSelectionInput().toUpperCase();
+                        Boolean logout = false;
 
-                        if (gameSelectionInput.equals("GOFISH")) {
-                            play(new GoFishGameEngine(), new GoFishPlayer(casinoAccount));
-                        } else if (gameSelectionInput.equals("ROULETTE")) {
-                            play(new RouletteGame(), new RoulettePlayer(casinoAccount));
-                        } else if (gameSelectionInput.equals("BLACKJACK")) {
-                            play(new BlackjackGameEngine(), new BlackjackPlayer(casinoAccount));
-                        } else {
-                            System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
+                        switch (gameSelectionInput) {
+                            case "GOFISH":
+                                play(new GoFishGameEngine(), new GoFishPlayer(casinoAccount));
+                                break;
+                            case "ROULETTE":
+                                play(new RouletteGame(), new RoulettePlayer(casinoAccount));
+                                break;
+                            case "BLACKJACK":
+                                play(new BlackjackGameEngine(), new BlackjackPlayer(casinoAccount));
+                                break;
+                            case "LOGOUT":
+                                logout = true;
+                                break;
+                            default:
+                                System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
+                                break;
                         }
-
-                    } while (!gameSelectionInput.equals("SLOTS")
-                            || !gameSelectionInput.equals("ROULETTE")
-                            || !gameSelectionInput.equals("BLACKJACK"));
+                        if (logout) {
+                            break;
+                        }
+                    }
 
                 } else {
                     System.out.println("Invalid username or password. Please try again.");
-                    continue;
                 }
 
             } else if ("create-account".equals(arcadeDashBoardInput)) {
@@ -83,7 +91,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ BLACKJACK ], [ GOFISH ], [ ROULETTE ]")
+                .append("\n\t[ BLACKJACK ], [ GOFISH ], [ ROULETTE ], [ LOGOUT ]")
                 .toString());
     }
 
