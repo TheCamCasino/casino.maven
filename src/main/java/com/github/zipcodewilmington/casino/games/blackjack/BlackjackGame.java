@@ -30,8 +30,16 @@ public class BlackjackGame {
         return this.playerHand;
     }
 
+    public void setPlayerHand(Hand hand) {
+        this.playerHand = hand;
+    }
+
     public Hand getDealerHand() {
         return this.dealerHand;
+    }
+
+    public void setDealerHand(Hand hand) {
+        this.dealerHand = hand;
     }
 
     public void hit(Hand hand) {
@@ -70,11 +78,11 @@ public class BlackjackGame {
         playerHand.addCard(deck.dealCard());
     }
 
-    public String dealerPlay(Hand hand) {
-        if (hand.getValue() > 17) {
+    public String dealerPlay() {
+        if (dealerHand.getValue() > 17 && !bust(getDealerHand())) {
             return "dealer stands";
-        } else if (hand.getValue() < 17) {
-            hand.addCard(deck.dealCard());
+        } else if (dealerHand.getValue() < 17) {
+            dealerHand.addCard(deck.dealCard());
             return "dealer hits";
         }
         return null;
@@ -92,23 +100,23 @@ public class BlackjackGame {
         return null;
     }
 
-    public String displayHands() {
-        return new StringBuilder()
+    public void displayHands() {
+        System.out.println(new StringBuilder()
                 .append("Dealer's Cards")
                 .append("\n" + dealerHand.showHand())
                 .append("\nPlayer's Cards")
                 .append("\n" + playerHand.showHand())
                 .append("\nPlayer's hand value: " + playerHand.getValue())
-                .toString();
+                .toString());
     }
 
-    public String displayHandsOneHidden() {
-        return new StringBuilder()
+    public void displayHandsOneHidden() {
+        System.out.println(new StringBuilder()
                 .append("\u001BDealer's Cards")
                 .append("\n" + dealerHand.getPlayerCard(0) + "[??]\n")
-                .append("\n" + "\u001BPlayer's Cards")
-                .append("\n" + "\u001B" + playerHand.showHand())
-                .append("\n" + "\u001BPlayer's hand value: " + playerHand.getValue())
-                .toString();
+                .append("\nPlayer's Cards")
+                .append("\n" + playerHand.showHand())
+                .append("\nPlayer's hand value: " + playerHand.getValue())
+                .toString());
     }
 }

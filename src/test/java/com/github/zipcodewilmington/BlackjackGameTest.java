@@ -212,8 +212,9 @@ public class BlackjackGameTest {
         //When
         hand.addCard(tenOfClubs);
         hand.addCard(kingOfDiamonds);
+        bj.setDealerHand(hand);
 
-        String actual = bj.dealerPlay(hand);
+        String actual = bj.dealerPlay();
 
         //Then
         Assert.assertEquals(expected, actual);
@@ -232,8 +233,9 @@ public class BlackjackGameTest {
         //When
         hand.addCard(tenOfClubs);
         hand.addCard(threeOfHearts);
+        bj.setDealerHand(hand);
 
-        String actual = bj.dealerPlay(hand);
+        String actual = bj.dealerPlay();
 
         //Then
         Assert.assertEquals(expected, actual);
@@ -304,21 +306,5 @@ public class BlackjackGameTest {
 
         //Then
         Assert.assertNull(actual);
-    }
-
-    @Test
-    public void displayHandsOneHidden() {
-        //Given
-        BlackjackGame bj = new BlackjackGame();
-        bj.initialHand();
-
-        String expected = "";
-
-        //When
-        String actual = bj.displayHandsOneHidden();
-
-        //Then
-        Assert.assertEquals(expected, actual);
-
     }
 }
