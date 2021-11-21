@@ -1,6 +1,5 @@
 package com.github.zipcodewilmington.casino.games.GoFish;
 
-import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.games.deck.Card;
 import com.github.zipcodewilmington.casino.games.deck.Deck;
 import com.github.zipcodewilmington.casino.games.deck.Rank;
@@ -14,101 +13,93 @@ public class GoFishGameEngineTest {
 
     private GoFishGameEngine goFishGameEngine;
     private GoFishHand testHand;
+    private GoFishHandTest playerHand;
+    private GoFishHandTest opponentHand;
 
     @Before
     public void setup() {
         goFishGameEngine = new GoFishGameEngine();
         testHand = new GoFishHand();
-    }
 
-    @Test
-    public void isOver_flagSetToFalseByDefault_isFalse() {
-         // given
-        boolean expected = false;
-        // when
-        boolean returned = goFishGameEngine.isOver();
-        // then
-        Assert.assertEquals(false, returned);
-    }
-
-    @Test
-    public void isOver_flagSetToFalseByDefault_isTrue() {
-        // given
-        goFishGameEngine.setIsOver(true);
-        // when
-        boolean returned = goFishGameEngine.isOver();
-        // then
-        Assert.assertTrue(returned);
-    }
-
-
-    @Test
-    public void isConstructorNull() {
-
-    }
-
-    @Test
-    public void dealShuffleTest() {
-     Deck deck = new Deck();
-
-    }
-    @Test
-    public void dealCardsTest() {
-
-
-        deck.shuffle();
-        for (int i = 0; i < 5; i++) {
-            opponentHand.addPlayerCards(deck.dealCard());
-            playerHand.addPlayerCards(deck.dealCard());
-    }
-
-    @Test
-    public void chooseCardChoiceTest() {
-
-    }
-
-
-    @Test
-    public void removeRanksTest() {
-        // given
         Card twoOfHearts = new Card(Suit.HEARTS, Rank.TWO);
         Card threeOfHearts = new Card(Suit.HEARTS, Rank.THREE);
+        Card twoOfDiamonds = new Card(Suit.DIAMONDS, Rank.TWO);
+        Card threeOfDiamonds = new Card(Suit.DIAMONDS, Rank.THREE);
+        Card twoOfSpades = new Card(Suit.SPADES, Rank.TWO);
+        Card threeOfSpades = new Card(Suit.SPADES, Rank.THREE);
+        Card twoOfClubs = new Card(Suit.CLUBS, Rank.TWO);
+
         testHand.addPlayerCards(twoOfHearts);
         testHand.addPlayerCards(threeOfHearts);
+        testHand.addPlayerCards(twoOfDiamonds);
+        testHand.addPlayerCards(threeOfDiamonds);
+        testHand.addPlayerCards(twoOfSpades);
+        testHand.addPlayerCards(threeOfSpades);
+        testHand.addPlayerCards(twoOfClubs);
+    }
 
-        String givenConsolePlayerInput = "3";
+    @Test
+    public void isOver_flagSetToFalseByDefault_isFalseTest() {
+        // given
+        boolean expected = false;
+        // when
+        boolean actual = goFishGameEngine.isOver();
+        // then
+        Assert.assertEquals(expected, actual);
+    }
 
-        String expectedHandString = "[2♥]";
+
+    @Test
+    public void removeRanksTestNull() {
+        // given
+        testHand = new GoFishHand();
+
+        String givenConsolePlayerInput = "";
+
+        String expectedHandString = "";
         // when
         goFishGameEngine.removeRanks(testHand, givenConsolePlayerInput);
         String returnedHandString = testHand.showPlayerHand();
         //  then
-         Assert.assertEquals(expectedHandString, returnedHandString);
+        Assert.assertEquals(expectedHandString, returnedHandString);
     }
 
     @Test
-    public void addTest() {
-        // given
-        Card twoOfHearts = new Card(Suit.HEARTS, Rank.TWO);
-        Card threeOfHearts = new Card(Suit.HEARTS, Rank.THREE);
-        testHand.addPlayerCards(twoOfHearts);
-        testHand.addPlayerCards(threeOfHearts);
-        // when
+    public void deckIncomingTest() {
+        Deck deck = new Deck();
+        //Given
+        Integer expected = 52;
 
+        //When
+        Integer actual = deck.cardsLeft();
 
-        // then
-       // Assert.assertEquals(expectedHand, returnedHand);
-    }
-    @Test
-    public void showPlayersHandTest() {  //Showing both player's hand
-        //
-    }
-    @Test
-    public void remove() {
+        //Then
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void fish() {
+    public void countBHelp() {
+
+        Integer actual = goFishGameEngine.countBooks(testHand.getPlayerHand());
+        Integer expected = 1;
+        Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void countRemainingBooks() {
+        // Tie equals -1;
+        Integer actual = goFishGameEngine.countRemainingBooks(testHand.getPlayerHand(), testHand.getPlayerHand());
+        Integer expected = -1;
+        Assert.assertEquals(expected, actual);
     }
 
 }
+
+
+
+
+
+
+
+

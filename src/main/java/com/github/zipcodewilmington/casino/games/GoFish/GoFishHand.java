@@ -34,24 +34,12 @@ private ArrayList<Card> opponentHand;
        return ranks;
    }
 
-//    public ArrayList<String> getOpponentRank() {
-//        ArrayList<String> ranks = new ArrayList<String>();
-//        for (Card card : opponentHand) {
-//            ranks.add(card.getRank().toString());
-//        }
-//        return ranks;
-//    }
-
     public ArrayList<Card> getPlayerHand() {
         return playerHand;
     }
 
     public void setPlayerHand(ArrayList<Card> hand) {
         this.playerHand = hand;
-    }
-
-    public void setOpponentHand(ArrayList<Card> hand) {
-        this.opponentHand = hand;
     }
 
     public void addCards(ArrayList<Card> cardsToAdd) {
