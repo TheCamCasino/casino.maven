@@ -52,13 +52,9 @@ public class Hand {
         return playerHand.get(index);
     }
 
-    public Boolean containsFaceCard() {
+    public Boolean containsTenCard() {
         for (Card card : playerHand) {
-            if (card.getRank().equals(Rank.JACK)) {
-                return true;
-            } else if (card.getRank().equals(Rank.QUEEN)) {
-                return true;
-            } else if (card.getRank().equals(Rank.KING)) {
+            if (card.getRank().getSecondaryValue().equals(10)) {
                 return true;
             }
         }

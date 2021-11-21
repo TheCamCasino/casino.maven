@@ -37,25 +37,27 @@ public class Casino implements Runnable {
 
                     String gameSelectionInput;
 
-                    do {
+                    while (true) {
                         gameSelectionInput = getGameSelectionInput().toUpperCase();
 
-                        if (gameSelectionInput.equals("GOFISH")) {
-                            play(new GoFishGameEngine(), new GoFishPlayer(casinoAccount));
-                        } else if (gameSelectionInput.equals("ROULETTE")) {
-                            play(new RouletteGame(), new RoulettePlayer(casinoAccount));
-                        } else if (gameSelectionInput.equals("BLACKJACK")) {
-                            play(new BlackjackGameEngine(), new BlackjackPlayer(casinoAccount));
-                        } else {
-                            System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
+                        switch (gameSelectionInput) {
+                            case "GOFISH":
+                                play(new GoFishGameEngine(), new GoFishPlayer(casinoAccount));
+                                break;
+                            case "ROULETTE":
+                                play(new RouletteGame(), new RoulettePlayer(casinoAccount));
+                                break;
+                            case "BLACKJACK":
+                                play(new BlackjackGameEngine(), new BlackjackPlayer(casinoAccount));
+                                break;
+                            default:
+                                System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
+                                break;
                         }
-                    } while (!getGameSelectionInput().equals("GOFISH")
-                            || !getGameSelectionInput().equals("ROULETTE")
-                            || !getGameSelectionInput().equals("BLACKJACK"));
+                    }
 
                 } else {
                     System.out.println("Invalid username or password. Please try again.");
-                    continue;
                 }
 
             } else if ("create-account".equals(arcadeDashBoardInput)) {

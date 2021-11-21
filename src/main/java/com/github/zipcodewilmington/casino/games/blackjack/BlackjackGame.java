@@ -86,9 +86,29 @@ public class BlackjackGame {
     }
 
     public String checkIfBlackjack(Hand hand) {
-        if (hand.getHandSize().equals(2) && hand.containsAce() && hand.containsFaceCard()) {
+        if (hand.getHandSize().equals(2) && hand.containsAce() && hand.containsTenCard()) {
             return "blackjack";
         }
         return null;
+    }
+
+    public String displayHands() {
+        return new StringBuilder()
+                .append("Dealer's Cards")
+                .append("\n" + dealerHand.showHand())
+                .append("\nPlayer's Cards")
+                .append("\n" + playerHand.showHand())
+                .append("\nPlayer's hand value: " + playerHand.getValue())
+                .toString();
+    }
+
+    public String displayHandsOneHidden() {
+        return new StringBuilder()
+                .append("\u001BDealer's Cards")
+                .append("\n" + dealerHand.getPlayerCard(0) + "[??]\n")
+                .append("\n" + "\u001BPlayer's Cards")
+                .append("\n" + "\u001B" + playerHand.showHand())
+                .append("\n" + "\u001BPlayer's hand value: " + playerHand.getValue())
+                .toString();
     }
 }

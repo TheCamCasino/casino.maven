@@ -305,4 +305,20 @@ public class BlackjackGameTest {
         //Then
         Assert.assertNull(actual);
     }
+
+    @Test
+    public void displayHandsOneHidden() {
+        //Given
+        BlackjackGame bj = new BlackjackGame();
+        bj.initialHand();
+
+        String expected = "";
+
+        //When
+        String actual = bj.displayHandsOneHidden();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+
+    }
 }

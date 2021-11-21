@@ -139,7 +139,7 @@ public class HandTest {
 
         //When
         hand.addCard(jackOfClubs);
-        Boolean actual = hand.containsFaceCard();
+        Boolean actual = hand.containsTenCard();
 
         //Then
         Assert.assertEquals(expected, actual);
@@ -154,7 +154,7 @@ public class HandTest {
 
         //When
         hand.addCard(twoOfClubs);
-        Boolean actual = hand.containsFaceCard();
+        Boolean actual = hand.containsTenCard();
 
         //Then
         Assert.assertEquals(expected, actual);
