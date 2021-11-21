@@ -5,13 +5,14 @@ import com.github.zipcodewilmington.casino.games.deck.Deck;
 
 import java.util.ArrayList;
 
-
 public class GoFishHand {
 
 private ArrayList<Card> playerHand;
+private ArrayList<Card> opponentHand;
 
     public GoFishHand() {
         this.playerHand = new ArrayList<>();
+        this.opponentHand = new ArrayList<>();
     }
 
    public String showPlayerHand() {
@@ -27,12 +28,8 @@ private ArrayList<Card> playerHand;
         this.playerHand.add(card);
    }
 
-   public void clearHand() {
-        this.playerHand.removeAll(this.playerHand);
-   }
-
    public ArrayList<String> getRank() {
-       ArrayList<String> ranks = new ArrayList<>();
+       ArrayList<String> ranks = new ArrayList<String>();
        for (Card card : playerHand) {
            ranks.add(card.getRank().toString());
        }
@@ -51,21 +48,6 @@ private ArrayList<Card> playerHand;
         for (Card card : cardsToAdd) {
             this.playerHand.add(card);
         }
-    }
-
-    public Card getPlayerCard(int index) {
-        return playerHand.get(index);
-    }
-
-    public ArrayList<Card> removeCard(Card card, ArrayList<Card> victimHand, ArrayList<Card> destHand)
-    {
-        for (int i = 0; i < victimHand.size(); i++) {
-            if (card.equals(victimHand.get(i))) {
-                destHand.add(card);
-                victimHand.remove(card);
-            }
-        }
-        return destHand;
     }
 
     public void dealCards() {

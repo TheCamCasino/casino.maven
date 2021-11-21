@@ -12,6 +12,7 @@ public class CasinoAccount {
     private Integer userBalance;
 
     public CasinoAccount(String userName, String userPassword, Integer userBalance) {
+
         this.userName = userName;
         this.userPassword = userPassword;
         this.userBalance = userBalance;
@@ -41,6 +42,8 @@ public class CasinoAccount {
         this.userBalance = userBalance;
     }
 
+
+    
     @Override
     public String toString() {
         return "Account Name is: " + userName;

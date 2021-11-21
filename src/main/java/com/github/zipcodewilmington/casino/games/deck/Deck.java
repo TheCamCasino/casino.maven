@@ -16,6 +16,7 @@ public class Deck {
 
     public void shuffle() {
         Collections.shuffle(cardStack);
+
     }
 
     public Card dealCard() {

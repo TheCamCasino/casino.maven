@@ -49,10 +49,10 @@ public class Casino implements Runnable {
                         } else {
                             System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
                         }
+
                     } while (!gameSelectionInput.equals("SLOTS")
                             || !gameSelectionInput.equals("ROULETTE")
                             || !gameSelectionInput.equals("BLACKJACK"));
-
 
                 } else {
                     System.out.println("Invalid username or password. Please try again.");
