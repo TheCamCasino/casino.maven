@@ -51,4 +51,26 @@ public class Hand {
     public Card getPlayerCard(int index) {
         return playerHand.get(index);
     }
+
+    public Boolean containsFaceCard() {
+        for (Card card : playerHand) {
+            if (card.getRank().equals(Rank.JACK)) {
+                return true;
+            } else if (card.getRank().equals(Rank.QUEEN)) {
+                return true;
+            } else if (card.getRank().equals(Rank.KING)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean containsAce() {
+        for (Card card : playerHand) {
+            if (card.getRank().equals(Rank.ACE)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

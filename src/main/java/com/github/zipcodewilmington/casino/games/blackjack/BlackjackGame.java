@@ -69,4 +69,26 @@ public class BlackjackGame {
     public void doubleDown() {
         playerHand.addCard(deck.dealCard());
     }
+
+    public String dealerPlay(Hand hand) {
+        if (hand.getValue() > 17) {
+            return "dealer stands";
+        } else if (hand.getValue() < 17) {
+            hand.addCard(deck.dealCard());
+            return "dealer hits";
+        }
+        return null;
+    }
+
+    public void newRound() {
+        dealerHand.clearHand();
+        playerHand.clearHand();
+    }
+
+    public String checkIfBlackjack(Hand hand) {
+        if (hand.getHandSize().equals(2) && hand.containsAce() && hand.containsFaceCard()) {
+            return "blackjack";
+        }
+        return null;
+    }
 }

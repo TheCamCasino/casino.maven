@@ -21,7 +21,14 @@ public class BlackjackGameEngine implements GameInterface {
 
     @Override
     public void run() {
+        //welcome to blackjack
+
+        //
+    }
+
+    public void bjStart() {
 
     }
+
 
 }

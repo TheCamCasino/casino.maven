@@ -130,4 +130,64 @@ public class HandTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void containsFaceCardTrueTest() {
+        //Given
+        Hand hand = new Hand();
+        Card jackOfClubs = new Card(Suit.CLUBS, Rank.JACK);
+        Boolean expected = true;
+
+        //When
+        hand.addCard(jackOfClubs);
+        Boolean actual = hand.containsFaceCard();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void containsFaceCardFalseTest() {
+        //Given
+        Hand hand = new Hand();
+        Card twoOfClubs = new Card(Suit.CLUBS, Rank.TWO);
+        Boolean expected = false;
+
+        //When
+        hand.addCard(twoOfClubs);
+        Boolean actual = hand.containsFaceCard();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void containsAceTrueTest() {
+        //Given
+        Hand hand = new Hand();
+        Card aceOfDiamonds = new Card(Suit.DIAMONDS, Rank.ACE);
+        Boolean expected = true;
+
+        //When
+        hand.addCard(aceOfDiamonds);
+        Boolean actual = hand.containsAce();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void containsAceFalseTest() {
+        //Given
+        Hand hand = new Hand();
+        Card twoOfClubs = new Card(Suit.CLUBS, Rank.TWO);
+        Boolean expected = false;
+
+        //When
+        hand.addCard(twoOfClubs);
+        Boolean actual = hand.containsAce();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
 }

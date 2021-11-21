@@ -77,7 +77,7 @@ public class BlackjackGameTest {
         Hand playerHand = new Hand();
         Hand dealerHand = new Hand();
 
-        Card sixOfHearts = new Card(Suit.HEARTS, Rank.EIGHT);
+        Card eightOfHearts = new Card(Suit.HEARTS, Rank.EIGHT);
         Card queenOfSpades = new Card(Suit.SPADES, Rank.QUEEN);
 
         Card aceOfSpades = new Card(Suit.SPADES, Rank.ACE);
@@ -86,7 +86,7 @@ public class BlackjackGameTest {
         String expected = "dealer";
 
         //When player hand is greater
-        playerHand.addCard(sixOfHearts);
+        playerHand.addCard(eightOfHearts);
         playerHand.addCard(twoOfDiamonds);
         dealerHand.addCard(queenOfSpades);
         dealerHand.addCard(aceOfSpades);
@@ -199,4 +199,110 @@ public class BlackjackGameTest {
         Assert.assertEquals(expected, playerHandSize);
     }
 
+    @Test
+    public void dealerStandsTest() {
+        //Given
+        BlackjackGame bj = new BlackjackGame();
+        Hand hand = new Hand();
+        Card tenOfClubs = new Card(Suit.CLUBS, Rank.TEN);
+        Card kingOfDiamonds = new Card(Suit.DIAMONDS, Rank.KING);
+
+        String expected = "dealer stands";
+
+        //When
+        hand.addCard(tenOfClubs);
+        hand.addCard(kingOfDiamonds);
+
+        String actual = bj.dealerPlay(hand);
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void dealerHitsTest() {
+        //Given
+        BlackjackGame bj = new BlackjackGame();
+        Hand hand = new Hand();
+        Card tenOfClubs = new Card(Suit.CLUBS, Rank.TEN);
+        Card threeOfHearts = new Card(Suit.HEARTS, Rank.THREE);
+
+        String expected = "dealer hits";
+
+        //When
+        hand.addCard(tenOfClubs);
+        hand.addCard(threeOfHearts);
+
+        String actual = bj.dealerPlay(hand);
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void newRoundPlayerHandTest() {
+        //Given
+        BlackjackGame bj = new BlackjackGame();
+        bj.initialHand();
+        Integer expected = 0;
+
+        //When
+        bj.newRound();
+        Integer actual = bj.getPlayerHand().getHandSize();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void newRoundDealerHandTest() {
+        //Given
+        BlackjackGame bj = new BlackjackGame();
+        bj.initialHand();
+        Integer expected = 0;
+
+        //When
+        bj.newRound();
+        Integer actual = bj.getDealerHand().getHandSize();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void checkIfBlackjackTest() {
+        //Given
+        BlackjackGame bj = new BlackjackGame();
+        Hand hand = new Hand();
+        Card aceOfSpades = new Card(Suit.SPADES, Rank.ACE);
+        Card jackOfClubs = new Card(Suit.CLUBS, Rank.JACK);
+        String expected = "blackjack";
+
+        //When
+        hand.addCard(aceOfSpades);
+        hand.addCard(jackOfClubs);
+
+        String actual = bj.checkIfBlackjack(hand);
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void checkIfBlackjackNullTest() {
+        //Given
+        BlackjackGame bj = new BlackjackGame();
+        Hand hand = new Hand();
+        Card sixOfHearts = new Card(Suit.HEARTS, Rank.SIX);
+        Card twoOfDiamonds = new Card(Suit.DIAMONDS, Rank.TWO);
+
+        //When
+        hand.addCard(sixOfHearts);
+        hand.addCard(twoOfDiamonds);
+
+        String actual = bj.checkIfBlackjack(hand);
+
+        //Then
+        Assert.assertNull(actual);
+    }
 }
