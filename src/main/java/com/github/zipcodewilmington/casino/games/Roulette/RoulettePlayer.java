@@ -1,6 +1,5 @@
 package com.github.zipcodewilmington.casino.games.Roulette;
 
-import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 
@@ -9,16 +8,14 @@ import com.github.zipcodewilmington.casino.PlayerInterface;
  */
 public class RoulettePlayer implements PlayerInterface {
     private CasinoAccount casinoAccount;
-    public static void accountBalance(int amountBet) {
 
-    }
     public RoulettePlayer(CasinoAccount casinoAccount){
         this.casinoAccount = casinoAccount;
     }
 
     @Override
     public CasinoAccount getArcadeAccount() {
-        return null;
+        return this.casinoAccount;
     }
 
     @Override

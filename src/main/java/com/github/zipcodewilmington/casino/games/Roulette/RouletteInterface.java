@@ -10,14 +10,15 @@ import java.util.Locale;
  * Created by leon on 7/21/2020.
  */
 public class RouletteInterface {
-
+    private final IOConsole console = new IOConsole(AnsiColor.YELLOW);
     public int spinWheel() {
-        int spin = (int) (Math.random() * 38);
+        int spin = (int) (Math.random() * 37);
         int result = spin;
         return result;
     }
 
-    public int determineWinnings(String[] playerBets, int winningNumber) {
+    public int determineWinnings(String playerInput, int winningNumber) {
+        String[] playerBets = playerInput.split(" ");
         int balanceChange = 0;
         int totalbet = 0;
 
@@ -148,9 +149,11 @@ public class RouletteInterface {
             }
 
         }
-        if(balanceChange > 0) {
+        System.out.println("The Winning number is " + winningNumber);
+
+        if(balanceChange >= 0) {
             System.out.println("you have won " + balanceChange + "");
-        }else if(balanceChange <= 0){
+        }else {
             System.out.println("you have lost " + balanceChange + "");
         }
         return balanceChange;
@@ -275,7 +278,7 @@ public class RouletteInterface {
     }
 
     public static boolean checkIfEven(int winningNumber) {
-        if((winningNumber % 2) == 0) {
+        if((winningNumber % 2) == 0 && winningNumber != 0) {
             return true;
         }else{
             return false;
@@ -309,5 +312,16 @@ public class RouletteInterface {
                 .append("\n[Split] [Corner] [Line] [Trio]")
                 .toString()));
 
+    }
+
+    public int totalBetAmount(String playerInput) {
+        int totalBet = 0;
+        String[] splitToSingleBets = playerInput.split(" ");
+        for (String playerbet : splitToSingleBets){
+            String[] betamount = playerbet.split(":");
+            Integer bet = Integer.parseInt(betamount[1]);
+            totalBet = (totalBet + bet);
+        }
+        return totalBet;
     }
 }
