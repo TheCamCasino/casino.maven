@@ -2,6 +2,7 @@ package com.github.zipcodewilmington.casino.games.GoFish;
 
 import com.github.zipcodewilmington.casino.games.deck.Card;
 import com.github.zipcodewilmington.casino.games.deck.Deck;
+
 import java.util.ArrayList;
 
 public class GoFishHand {
@@ -18,6 +19,7 @@ private ArrayList<Card> opponentHand;
         String showCards = "";
         for (Card card : playerHand) {
             showCards += card.toString();
+
         }
         return showCards;
    }
@@ -54,5 +56,7 @@ private ArrayList<Card> opponentHand;
         for (int i = 0; i < 7; i++) {
             addPlayerCards(deck.dealCard());
         }
+
     }
+
 }

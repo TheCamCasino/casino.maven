@@ -21,6 +21,7 @@ public class GoFishPlayer implements PlayerInterface {
         return null;
     }
 
+
     public Integer getBalance() {
         return this.casinoAccount.getUserBalance();
     }
@@ -32,4 +33,5 @@ public class GoFishPlayer implements PlayerInterface {
     public String getUserPassword() {
         return this.casinoAccount.getUserPassword();
     }
+
 }

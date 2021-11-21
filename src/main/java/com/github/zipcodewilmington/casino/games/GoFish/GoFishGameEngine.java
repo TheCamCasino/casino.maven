@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino.games.GoFish;
 
+
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.deck.Card;
@@ -8,6 +9,7 @@ import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
 import java.util.ArrayList;
+
 import java.util.Random;
 
 public class GoFishGameEngine implements GameInterface {
@@ -30,7 +32,6 @@ public class GoFishGameEngine implements GameInterface {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to GoFish!")
                 .toString());
-
     }
 
     public void playGame() throws InterruptedException {  //Game Loop

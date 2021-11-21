@@ -16,4 +16,20 @@ public class Card {
     public String toString() {
         return "[" + this.rank + "" + this.suit + "]";
     }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public void setSuit(Suit suit) {
+        this.suit = suit;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
 }

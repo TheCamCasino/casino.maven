@@ -6,10 +6,10 @@ import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.GoFish.GoFishGameEngine;
 import com.github.zipcodewilmington.casino.games.GoFish.GoFishPlayer;
-import com.github.zipcodewilmington.casino.games.blackjack.BlackjackGame;
+import com.github.zipcodewilmington.casino.games.blackjack.BlackjackGameEngine;
 import com.github.zipcodewilmington.casino.games.blackjack.BlackjackPlayer;
-import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
-import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessPlayer;
+import com.github.zipcodewilmington.casino.games.Roulette.RoulettePlayer;
+import com.github.zipcodewilmington.casino.games.Roulette.RouletteGame;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
@@ -43,15 +43,16 @@ public class Casino implements Runnable {
                         if (gameSelectionInput.equals("GOFISH")) {
                             play(new GoFishGameEngine(), new GoFishPlayer(casinoAccount));
                         } else if (gameSelectionInput.equals("ROULETTE")) {
-                            play(new NumberGuessGame(), new NumberGuessPlayer());
+                            play(new RouletteGame(), new RoulettePlayer(casinoAccount));
                         } else if (gameSelectionInput.equals("BLACKJACK")) {
-                            play(new BlackjackGame(), new BlackjackPlayer());
+                            play(new BlackjackGameEngine(), new BlackjackPlayer(casinoAccount));
                         } else {
                             System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
                         }
-                    } while (!getGameSelectionInput().equals("GOFISH")
-                            || !getGameSelectionInput().equals("ROULETTE")
-                            || !getGameSelectionInput().equals("BLACKJACK"));
+
+                    } while (!gameSelectionInput.equals("SLOTS")
+                            || !gameSelectionInput.equals("ROULETTE")
+                            || !gameSelectionInput.equals("BLACKJACK"));
 
                 } else {
                     System.out.println("Invalid username or password. Please try again.");

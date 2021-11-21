@@ -4,6 +4,7 @@ import com.github.zipcodewilmington.casino.games.deck.Card;
 import com.github.zipcodewilmington.casino.games.deck.Rank;
 import com.github.zipcodewilmington.casino.games.deck.Suit;
 import org.junit.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,11 +39,13 @@ public class GoFishHandTest {
 
     @Test
     public String showPlayerHand() {
+
         //Given
         GoFishHand goFishHand = new GoFishHand();
         goFishHand.dealCards();
 
         //When
+
         String actual = testHand.showPlayerHand();
 
         //Expected
@@ -89,4 +92,5 @@ public class GoFishHandTest {
         Assert.assertEquals(expected, actual);
     }
 }
+
 

@@ -11,7 +11,8 @@ public class CasinoAccount {
     private String userPassword;
     private Integer userBalance;
 
-  public CasinoAccount(String userName, String userPassword, Integer userBalance) {
+    public CasinoAccount(String userName, String userPassword, Integer userBalance) {
+
         this.userName = userName;
         this.userPassword = userPassword;
         this.userBalance = userBalance;
