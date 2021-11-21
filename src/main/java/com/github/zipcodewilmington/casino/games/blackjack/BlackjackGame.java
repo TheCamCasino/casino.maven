@@ -30,10 +30,6 @@ public class BlackjackGame {
         return this.playerHand;
     }
 
-    public void setPlayerHand(Hand hand) {
-        this.playerHand = hand;
-    }
-
     public Hand getDealerHand() {
         return this.dealerHand;
     }
@@ -44,20 +40,6 @@ public class BlackjackGame {
 
     public void hit(Hand hand) {
         hand.addCard(deck.dealCard());
-    }
-
-    public String checkWinner(Hand playerHand, Hand dealerHand) {
-        Integer playerHandValue = playerHand.getValue();
-        Integer dealerHandValue = dealerHand.getValue();
-
-        if (playerHandValue > dealerHandValue) {
-            return "player";
-        } else if (playerHandValue < dealerHandValue) {
-            return "dealer";
-        } else if (playerHandValue.equals(dealerHandValue)) {
-            return "tie";
-        }
-        return null;
     }
 
     public Boolean bust(Hand hand) {
@@ -74,18 +56,38 @@ public class BlackjackGame {
         playerHand.addCard(deck.dealCard());
     }
 
-    public void doubleDown() {
-        playerHand.addCard(deck.dealCard());
+    public void dealerPlay() {
+        while (true) {
+            if (bust(dealerHand)) {
+                break;
+            } else if (dealerHand.getValue() >= 17 && dealerHand.getValue() < 22) {
+                break;
+            } else if (dealerHand.getValue() < 17) {
+                hit(dealerHand);
+            }
+        }
     }
 
-    public String dealerPlay() {
-        if (dealerHand.getValue() > 17 && !bust(getDealerHand())) {
-            return "dealer stands";
-        } else if (dealerHand.getValue() < 17) {
-            dealerHand.addCard(deck.dealCard());
-            return "dealer hits";
-        }
-        return null;
+    public String checkWinner(Hand playerHand, Hand dealerHand) {
+        Integer playerHandValue = playerHand.getValue();
+        Integer dealerHandValue = dealerHand.getValue();
+        Boolean dealerIsBust = bust(dealerHand);
+        Boolean isBlackjack = checkIfBlackjack(playerHand).equals("blackjack");
+
+            if (isBlackjack) {
+                if (playerHandValue > dealerHandValue) {
+                    return "bj win";
+                } else if (playerHandValue < dealerHandValue && dealerIsBust) {
+                    return "bj win dealer bust";
+                }
+            } else if (playerHandValue > dealerHandValue) {
+                return "std win";
+            } else if (playerHandValue < dealerHandValue && dealerIsBust) {
+                return "win dealer bust";
+            } else if (playerHandValue < dealerHandValue) {
+                return "dealer win";
+            }
+            return "tie";
     }
 
     public void newRound() {
@@ -96,8 +98,9 @@ public class BlackjackGame {
     public String checkIfBlackjack(Hand hand) {
         if (hand.getHandSize().equals(2) && hand.containsAce() && hand.containsTenCard()) {
             return "blackjack";
+        } else {
+            return "not blackjack";
         }
-        return null;
     }
 
     public void displayHands() {
@@ -106,8 +109,7 @@ public class BlackjackGame {
                 .append("\n" + dealerHand.showHand())
                 .append("\nPlayer's Cards")
                 .append("\n" + playerHand.showHand())
-                .append("\nPlayer's hand value: " + playerHand.getValue())
-                .toString());
+                .append("\nPlayer's hand value: " + playerHand.getValue()));
     }
 
     public void displayHandsOneHidden() {
@@ -116,7 +118,15 @@ public class BlackjackGame {
                 .append("\n" + dealerHand.getPlayerCard(0) + "[??]\n")
                 .append("\nPlayer's Cards")
                 .append("\n" + playerHand.showHand())
-                .append("\nPlayer's hand value: " + playerHand.getValue())
-                .toString());
+                .append("\nPlayer's hand value: " + playerHand.getValue()));
+    }
+
+    public void displayDoubleDown() {
+        System.out.println(new StringBuilder()
+                .append("\u001BDealer's Cards")
+                .append("\n" + dealerHand.showHand())
+                .append("\nPlayer's Cards")
+                .append("\n" + playerHand.getPlayerCard(0)
+                        + playerHand.getPlayerCard(1) + "[??]"));
     }
 }
