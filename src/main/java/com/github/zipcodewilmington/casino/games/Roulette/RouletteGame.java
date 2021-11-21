@@ -7,7 +7,7 @@ import com.github.zipcodewilmington.utils.IOConsole;
 
 public class RouletteGame implements GameInterface {
 
-    private final IOConsole console = new IOConsole(AnsiColor.RED);
+    private final IOConsole console = new IOConsole(AnsiColor.GREEN);
     private PlayerInterface player;
     private RouletteInterface RG = new RouletteInterface();
     private Integer balance = 0;

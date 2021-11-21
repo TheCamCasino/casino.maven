@@ -1,15 +1,14 @@
 package com.github.zipcodewilmington.casino.games.blackjack;
 
-import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
-import java.util.Locale;
-
 public class BlackjackGameEngine implements GameInterface {
-    private final IOConsole console = new IOConsole(AnsiColor.YELLOW);
+    private final IOConsole console = new IOConsole(AnsiColor.GREEN);
+    private final IOConsole yellowConsole = new IOConsole(AnsiColor.YELLOW);
+    private final IOConsole redConsole = new IOConsole(AnsiColor.RED);
     private PlayerInterface player;
     private Integer playerBet;
     private Integer balance;
@@ -50,13 +49,15 @@ public class BlackjackGameEngine implements GameInterface {
     }
 
     private void welcomeToBlackjack() {
-        System.out.println("┬ ┬┌─┐┬  ┌─┐┌─┐┌┬┐┌─┐  ┌┬┐┌─┐\n" +
+        yellowConsole.println("┬ ┬┌─┐┬  ┌─┐┌─┐┌┬┐┌─┐  ┌┬┐┌─┐\n" +
                 "│││├┤ │  │  │ ││││├┤    │ │ │\n" +
                 "└┴┘└─┘┴─┘└─┘└─┘┴ ┴└─┘   ┴ └─┘\n" +
                 "╔╗ ╦  ╔═╗╔═╗╦╔═ ╦╔═╗╔═╗╦╔═  ┬\n" +
                 "╠╩╗║  ╠═╣║  ╠╩╗ ║╠═╣║  ╠╩╗  │\n" +
                 "╚═╝╩═╝╩ ╩╚═╝╩ ╩╚╝╩ ╩╚═╝╩ ╩  o");
     }
+
+
 
     public void bjStart() {
         balance = player.getArcadeAccount().getUserBalance();
@@ -81,7 +82,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance - playerBet);
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    System.out.println("Busted! You've lost this round." +
+                    redConsole.println("Busted! You've lost this round." +
                             "\nCurrent balance is: " + balance);
                     break;
                 }
@@ -103,7 +104,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance + (playerBet*2));
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    System.out.println("You got Blackjack! Your winnings are doubled." +
+                    yellowConsole.println("You got Blackjack! Your winnings are doubled." +
                             "\nCurrent balance is: " + balance);
 
                 }
@@ -112,7 +113,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance + (playerBet*2));
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    System.out.println("Dealer busts! You got Blackjack! Your winnings are doubled." +
+                    yellowConsole.println("Dealer busts! You got Blackjack! Your winnings are doubled." +
                             "\nCurrent balance is: " + balance);
 
                 }
@@ -121,7 +122,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance + playerBet);
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    System.out.println("You win this round." +
+                    yellowConsole.println("You win this round." +
                             "\nCurrent balance is: " + balance);
 
                 }
@@ -130,7 +131,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance + playerBet);
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    System.out.println("Dealer busts! You win this round." +
+                    yellowConsole.println("Dealer busts! You win this round." +
                             "\nCurrent balance is: " + balance);
 
                 } else if (winner.equals("dealer win")) {
@@ -138,7 +139,7 @@ public class BlackjackGameEngine implements GameInterface {
                     player.getArcadeAccount().setUserBalance(balance - playerBet);
                     balance = player.getArcadeAccount().getUserBalance();
 
-                    System.out.println("You lose this round!" +
+                    redConsole.println("You lose this round!" +
                             "\nCurrent balance is: " + balance);
 
                 } else {
