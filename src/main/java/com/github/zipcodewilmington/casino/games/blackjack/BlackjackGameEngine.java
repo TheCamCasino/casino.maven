@@ -1,8 +1,8 @@
 package com.github.zipcodewilmington.casino.games.blackjack;
 
+import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
-import com.github.zipcodewilmington.casino.games.deck.Hand;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
@@ -39,11 +39,12 @@ public class BlackjackGameEngine implements GameInterface {
             switch (input) {
                 case "play":
                     bjStart();
+                    break;
                 case "rules":
                     rules();
                     break;
-                default:
-                    input = getBJDashboardInput().toLowerCase();
+                case "exit":
+                    return;
             }
         }
     }
@@ -81,31 +82,77 @@ public class BlackjackGameEngine implements GameInterface {
                     balance = player.getArcadeAccount().getUserBalance();
 
                     System.out.println("Busted! You've lost this round." +
-                            "\nYour current balance is: " + balance);
-
-                    continueInput = getContinueInput();
-                    if (continueInput.equalsIgnoreCase("no")) {
-                        gameRuns = false;
-                    }
+                            "\nCurrent balance is: " + balance);
                     break;
                 }
                 playInput = getPlayInput();
             }
 
-            if (playInput.equalsIgnoreCase("s")) {
-                bj.displayHands();
-                bj.dealerPlay();
+            if (playInput.equalsIgnoreCase("dd")) {
+                bj.hit(bj.getPlayerHand());
+                bj.displayDoubleDown();
+                playInput = "s";
+            }
 
+            if (playInput.equalsIgnoreCase("s")) {
+                bj.dealerPlay();
                 winner = bj.checkWinner(bj.getPlayerHand(), bj.getDealerHand());
 
-                if (winner.equals("player")) {
+                if (winner.equals("bj win")) {
+                    bj.displayHands();
+                    player.getArcadeAccount().setUserBalance(balance + (playerBet*2));
+                    balance = player.getArcadeAccount().getUserBalance();
+
+                    System.out.println("You got Blackjack! Your winnings are doubled." +
+                            "\nCurrent balance is: " + balance);
+
+                }
+                else if (winner.equals("bj win dealer bust")) {
+                    bj.displayHands();
+                    player.getArcadeAccount().setUserBalance(balance + (playerBet*2));
+                    balance = player.getArcadeAccount().getUserBalance();
+
+                    System.out.println("Dealer busts! You got Blackjack! Your winnings are doubled." +
+                            "\nCurrent balance is: " + balance);
+
+                }
+                else if (winner.equals("std win")) {
+                    bj.displayHands();
+                    player.getArcadeAccount().setUserBalance(balance + playerBet);
+                    balance = player.getArcadeAccount().getUserBalance();
+
+                    System.out.println("You win this round." +
+                            "\nCurrent balance is: " + balance);
+
+                }
+                else if (winner.equals("win dealer bust")) {
+                    bj.displayHands();
+                    player.getArcadeAccount().setUserBalance(balance + playerBet);
+                    balance = player.getArcadeAccount().getUserBalance();
+
+                    System.out.println("Dealer busts! You win this round." +
+                            "\nCurrent balance is: " + balance);
+
+                } else if (winner.equals("dealer win")) {
+                    bj.displayHands();
+                    player.getArcadeAccount().setUserBalance(balance - playerBet);
+                    balance = player.getArcadeAccount().getUserBalance();
+
+                    System.out.println("You lose this round!" +
+                            "\nCurrent balance is: " + balance);
+
+                } else {
+                    bj.displayHands();
+                    System.out.println("This round is a tie.");
                 }
             }
+
+            continueInput = getContinueInput();
+            if (continueInput.equalsIgnoreCase("no")) {
+                gameRuns = false;
+            }
         }
-
     }
-
-
 
     private String getBJDashboardInput() {
         return console.getStringInput(new StringBuilder()
@@ -118,7 +165,7 @@ public class BlackjackGameEngine implements GameInterface {
     private String getContinueInput() {
         while(true) {
             String output = console.getStringInput(new StringBuilder()
-                    .append("\nWould you like to play a new round?")
+                    .append("Would you like to play a new round?")
                     .append("\n[ yes ] [ no ]")
                     .toString());
             if (output.equalsIgnoreCase("yes")

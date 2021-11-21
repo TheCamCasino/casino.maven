@@ -39,6 +39,7 @@ public class Casino implements Runnable {
 
                     while (true) {
                         gameSelectionInput = getGameSelectionInput().toUpperCase();
+                        Boolean logout = false;
 
                         switch (gameSelectionInput) {
                             case "GOFISH":
@@ -50,9 +51,15 @@ public class Casino implements Runnable {
                             case "BLACKJACK":
                                 play(new BlackjackGameEngine(), new BlackjackPlayer(casinoAccount));
                                 break;
+                            case "LOGOUT":
+                                logout = true;
+                                break;
                             default:
                                 System.out.println(gameSelectionInput + " is an invalid game selection. Please try again.");
                                 break;
+                        }
+                        if (logout) {
+                            break;
                         }
                     }
 
@@ -84,7 +91,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ BLACKJACK ], [ GOFISH ], [ ROULETTE ]")
+                .append("\n\t[ BLACKJACK ], [ GOFISH ], [ ROULETTE ], [ LOGOUT ]")
                 .toString());
     }
 

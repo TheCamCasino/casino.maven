@@ -114,7 +114,7 @@ public class BlackjackGame {
 
     public void displayHandsOneHidden() {
         System.out.println(new StringBuilder()
-                .append("\u001BDealer's Cards")
+                .append("Dealer's Cards")
                 .append("\n" + dealerHand.getPlayerCard(0) + "[??]\n")
                 .append("\nPlayer's Cards")
                 .append("\n" + playerHand.showHand())
