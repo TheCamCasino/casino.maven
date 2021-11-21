@@ -40,19 +40,20 @@ public class RouletteGame implements GameInterface {
             }else if(playerInput.equalsIgnoreCase("")) {
                 System.out.println("Please enter a valid choice");
             }else {
-                if (RG.totalBetAmount(playerInput) <= balance) {
+
                     try {
-                        int balanceChange = RG.determineWinnings(playerInput, winningNumber);
-                        player.getArcadeAccount().setUserBalance(balance + balanceChange);
-                    } catch (Exception e) {
+                        if (RG.totalBetAmount(playerInput) <= balance) {
+                            int balanceChange = RG.determineWinnings(playerInput, winningNumber);
+                            player.getArcadeAccount().setUserBalance(balance + balanceChange);
+                        } else{
+                            console.getStringInput(new StringBuilder()
+                                    .append("Amount too large for your balance")
+                                    .append("\nPlease enter a valid amount")
+                                    .toString());
+                        }
+                }catch (Exception e) {
 
                     }
-                }else{
-                    console.getStringInput(new StringBuilder()
-                            .append("Amount too large for your balance")
-                            .append("\nPlease enter a valid amount")
-                            .toString());
-                }
             }
         } while (!playerInput.equalsIgnoreCase("Leave Table"));
     }
