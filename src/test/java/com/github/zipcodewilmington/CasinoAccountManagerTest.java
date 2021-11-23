@@ -10,27 +10,16 @@ public class CasinoAccountManagerTest {
     @Test
     public void CasinoAccountManagerTest() {
         //Given
-
+        CasinoAccountManager casinoAccountManager = new CasinoAccountManager();
+        CasinoAccount spongebob = casinoAccountManager.createAccount("sponge", "bob");
 
         //When
-
+        casinoAccountManager.registerAccount(spongebob);
+        CasinoAccount actual = casinoAccountManager.getAccount("sponge");
 
         //Then
+        Assert.assertEquals(spongebob, actual);
     }
-
-//    @Test
-//    public void getAccountTest() {
-//        //Given
-//        CasinoAccountManager casinoAccountManager = new CasinoAccountManager();
-//        CasinoAccount casinoAccount = new CasinoAccount("John", "Smith", 300);
-//
-//        //When
-//        CasinoAccount actualAccount = casinoAccountManager.getAccount("John");
-//
-//        //Then
-//        Assert.assertEquals(casinoAccount, actualAccount);
-//
-//    }
 
 
 }
