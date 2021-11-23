@@ -200,7 +200,7 @@ public class BlackjackGameEngine implements GameInterface {
         }
     }
 
-    private void rules() {
+    public void rules() {
         cyanConsole.println(new StringBuilder()
                 .append("\nObjective: Try to get as close to 21 as possible without going over.")
                 .append("\nDuring your turn, you can choose to either hit, stand or double-down.")

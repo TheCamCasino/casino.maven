@@ -19,11 +19,11 @@ public enum Rank {
     private final Integer secondaryValue;
     private final String rankSymbol;
 
-    Rank(Integer value, String rankSymbol) {
-        this.primaryValue = value;
-        this.secondaryValue = value;
-        this.rankSymbol = rankSymbol;
-    }
+//    Rank(Integer value, String rankSymbol) {
+//        this.primaryValue = value;
+//        this.secondaryValue = value;
+//        this.rankSymbol = rankSymbol;
+//    }
 
     Rank(Integer primaryValue, Integer secondaryValue, String rankSymbol) {
         this.primaryValue = primaryValue;
